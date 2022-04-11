@@ -55,7 +55,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                         value={taskName}
                         onChange={onChangeHandlerTaskName}
                         onKeyPress={onKeyPressHandlerTaskName}/>
-                    <button onClick={addTask}>+</button>
+                    <button onClick={addTask}>send</button>
                 </div>
                 <ul>
                     {props.tasks.map((el) => {
@@ -74,8 +74,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                 <div>
                     <button onClick={onClickAllHandler}>All</button>
                     <button onClick={onClickActiveHandler}>Active</button>
-                    <button onClick={onClickCompletedHandler}>Completed
-                    </button>
+                    <button onClick={onClickCompletedHandler}>Completed</button>
 
                 </div>
             </div>
