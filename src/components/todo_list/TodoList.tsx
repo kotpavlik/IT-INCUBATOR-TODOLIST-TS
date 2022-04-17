@@ -92,7 +92,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                                     className={el.isDone ? "" : style.IsDone_false}>
                                     {el.title}</span>
                                 <button onClick={onClickRemoveTask}
-                                        className={`${style.no_active_button} ${style.del}`}>x</button>
+                                        className={`${style.no_active_button} ${style.del}`}>✖️</button>
 
                             </li>
                         );
