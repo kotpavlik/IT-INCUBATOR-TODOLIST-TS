@@ -51,6 +51,26 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
             addTask();
         }
     };
+    const tasksListItems = props.tasks.length
+        ?  props.tasks.map((el) => {
+            const onClickRemoveTask = () => {
+                props.removeTasks(el.id);
+            };
+            const onClickIsDoneTask = (e: ChangeEvent<HTMLInputElement>) => {
+                props.changeIsDoneTask(el.id, e.currentTarget.checked)
+            }
+            return (
+                <li key={el.id} className={style.task}>
+                    <input type="checkbox" checked={el.isDone} onChange={onClickIsDoneTask}/>
+                    <span
+                        className={el.isDone ? "" : style.IsDone_false}>
+                                    {el.title}</span>
+                    <button onClick={onClickRemoveTask}
+                            className={`${style.no_active_button} ${style.del}`}>✖️</button>
+                </li>
+            );
+        }) : <span className={style.no_tasks}>No tasks</span>;
+
     const onClickAllHandler = () => {
         props.changeFilter('all')
     };
@@ -77,26 +97,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
 
                 </div>
                 <ul className={style.tasks_list}>
-                    {props.tasks.map((el) => {
-
-                        const onClickRemoveTask = () => {
-                            props.removeTasks(el.id);
-                        };
-                        const onClickIsDoneTask = (e: ChangeEvent<HTMLInputElement>) => {
-                            props.changeIsDoneTask(el.id, e.currentTarget.checked)
-                        }
-                        return (
-                            <li key={el.id} className={style.task}>
-                                <input type="checkbox" checked={el.isDone} onChange={onClickIsDoneTask}/>
-                                <span
-                                    className={el.isDone ? "" : style.IsDone_false}>
-                                    {el.title}</span>
-                                <button onClick={onClickRemoveTask}
-                                        className={`${style.no_active_button} ${style.del}`}>✖️</button>
-
-                            </li>
-                        );
-                    })}
+                    {tasksListItems}
                 </ul>
                 <div>
                     <button

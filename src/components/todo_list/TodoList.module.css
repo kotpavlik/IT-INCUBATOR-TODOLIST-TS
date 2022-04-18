@@ -120,4 +120,27 @@
 .IsDone_false{
     opacity: 50%;
 }
+.no_tasks {
+    position: absolute;
+    top: 130px;
+    margin : 30px 30px;
+    color: black;
+    font-size: 30px;
+    animation-name: noTasks;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    user-select: none;
 
+}
+
+@keyframes noTasks {
+    25% {
+        opacity: 1;
+        transform: translateX(-15px);
+    }
+    50% {
+        transform: translateX(15px);
+        opacity: 1;
+    }
+
+}
