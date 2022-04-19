@@ -1,3 +1,5 @@
+
+
 .error_message {
     position: absolute;
     top: 65px;
@@ -8,7 +10,9 @@
     animation-iteration-count: infinite;
 
 }
-
+.wrapper_all_tasks {
+    margin: 10px;
+}
 @keyframes fadeIn {
     25% {
         opacity: 1;

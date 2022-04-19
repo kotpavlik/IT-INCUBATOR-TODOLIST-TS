@@ -95,7 +95,7 @@ const styleButtonCompletedActive = props.filter === 'completed' ? style.active_b
 
 
 return (
-    <div className="wrapper">
+    <div className={style.wrapper_all_tasks}>
         <div className={style.wrapper_all}>
             <h3 className={style.title_task}>{props.title}
                 <span

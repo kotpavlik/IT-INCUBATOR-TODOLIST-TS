@@ -76,30 +76,33 @@ function App() {
 
     return (
         <div className="App">
-            {todoLists.map((tl) => {
-                let tasksForTodoList = tasksObj[tl.id];
-                if (tl.filter === 'active') {
-                    tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === false);
-                }
-                if (tl.filter === 'completed') {
-                    tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === true);
-                }
-                return (
-                    <TodoList
-                        key={tl.id}
-                        todoId={tl.id}
-                        title={tl.title}
-                        tasks={tasksForTodoList}
-                        filter={tl.filter}
-                        removeTasks={removeTasks}
-                        changeFilter={changeFilter}
-                        addTasks={addTasks}
-                        changeIsDoneTask={changeIsDoneTask}
-                        removeTodoList={removeTodoList}
-                    />
+            <div className="global_title"> YourToDo </div>
+            <div className="wrapper_global_all">
 
-                )
-            })}
+                {todoLists.map((tl) => {
+                    let tasksForTodoList = tasksObj[tl.id];
+                    if (tl.filter === 'active') {
+                        tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === false);
+                    }
+                    if (tl.filter === 'completed') {
+                        tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === true);
+                    }
+                    return (
+                        <TodoList
+                            key={tl.id}
+                            todoId={tl.id}
+                            title={tl.title}
+                            tasks={tasksForTodoList}
+                            filter={tl.filter}
+                            removeTasks={removeTasks}
+                            changeFilter={changeFilter}
+                            addTasks={addTasks}
+                            changeIsDoneTask={changeIsDoneTask}
+                            removeTodoList={removeTodoList}
+                        />
+
+                    )
+                })}</div>
         </div>
     );
 }
