@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList, {TaskType} from './components/todo_list/TodoList';
 import {v1} from 'uuid';
+// @ts-ignore
+import {AddItemForm} from "./components/addItemForm/AddItemForm";
+
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
 type TodoListsType = {
@@ -17,6 +20,7 @@ function App() {
 
     const tasksID_1 = v1();
     const tasksID_2 = v1();
+
     let [todoLists, setTodoLists] = useState<Array<TodoListsType>>([
         {id: tasksID_1, title: 'What learn', filter: 'all'},
         {id: tasksID_2, title: 'What buy', filter: 'all'}]);
@@ -49,21 +53,23 @@ function App() {
         setTasksObj({...tasksObj});
     }
     function changeFilter(value: FilterValuesType, todoListId: string) {
-        setTodoLists(todoLists.map(tl => {
-            if (tl.id === todoListId) {
-                return {...tl, filter: value}
-            }
-            return tl;
-        }))
+        setTodoLists(todoLists.map(el => el.id === todoListId ? {...el, filter: value} : el))
+        // setTodoLists(todoLists.map(tl => {
+        //     if (tl.id === todoListId) {
+        //         return {...tl, filter: value}
+        //     }
+        //     return tl;
+        // }))
     }
     function changeIsDoneTask(taskId: string, isDone: boolean,todoListId: string) {
-        let tasks = tasksObj[todoListId];
-        let task = tasks.find(t => t.id === taskId);
-        if (task) {
-            task.isDone = isDone;
-        }
-        tasksObj[todoListId] = tasks;
-        setTasksObj({...tasksObj})
+        // let tasks = tasksObj[todoListId];
+        // let task = tasks.find(t => t.id === taskId);
+        // if (task) {
+        //     task.isDone = isDone;
+        // }
+        // tasksObj[todoListId] = tasks;
+        // setTasksObj({...tasksObj})
+        setTasksObj({...tasksObj,[todoListId]:tasksObj[todoListId].map(el => el.id === taskId ? {...el,isDone} : el )})
     }
     function removeTodoList  (todoListId:string)  {
         let newTodoList = todoLists.filter( td => td.id !== todoListId )
@@ -77,6 +83,7 @@ function App() {
     return (
         <div className="App">
             <div className="global_title"> YourToDo </div>
+            <AddItemForm addItem={(value)=>{alert(value)}}/>
             <div className="wrapper_global_all">
 
                 {todoLists.map((tl) => {
@@ -100,7 +107,6 @@ function App() {
                             changeIsDoneTask={changeIsDoneTask}
                             removeTodoList={removeTodoList}
                         />
-
                     )
                 })}</div>
         </div>

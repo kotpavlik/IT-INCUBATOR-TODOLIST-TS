@@ -1,0 +1,96 @@
+.add_input_wrapper{
+    position: relative;
+}
+
+.error_message {
+    position: absolute;
+    bottom: 25px;
+    margin : 8px 40px;
+    color: red;
+    animation-name: fadeIn;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+
+}
+@keyframes fadeIn {
+    25% {
+        opacity: 1;
+        transform: translateX(-15px);
+    }
+    50% {
+        transform: translateX(15px);
+        opacity: 1;
+    }
+
+}
+.error_input {
+    min-width: 170px;
+    border: 2px solid red;
+    margin: 0 5px;
+    padding: 4px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.error_input:focus {
+    color: #8f8f8f;
+    outline: none !important;
+    border: 2px solid rgba(255, 192, 203);
+    box-shadow: 0 0 6px #719ECE;
+    transition: all 0.3s ease-in-out;
+}
+
+.input_style:focus {
+    color: #8f8f8f;
+    outline: none !important;
+    border: 2px solid rgba(255, 192, 203);
+    box-shadow: 0 0 6px #719ECE;
+    transition: all 0.3s ease-in-out;
+}
+
+.input_style {
+    min-width: 170px;
+    margin: 0 5px;
+    padding: 4px;
+    border: 2px solid rgb(117, 117, 117);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+.active_button, .no_active_button {
+    margin: 4px;
+    padding: 5px 20px;
+    background-color: rgba(255, 192, 203, 0.4);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: all 0.6s;
+    cursor: pointer;
+}
+
+.active_button:hover, .no_active_button:hover {
+    box-shadow: 0px 3px 5px 1px rgba(0, 0, 0, 0.24);
+    background-color: rgba(117, 220, 255, 0.49);
+    transform: scale(1.1);
+    transition: all 0.6s;
+}
+
+.active_button:active, .no_active_button:active {
+    box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.24);
+    transform: scale(0.9);
+    transition: all 0.6s;
+}
+
+.active_button {
+    font-weight: bold;
+    color: yellow;
+    text-shadow: 1px 1px 1px black;
+    background-color: rgba(117, 220, 255, 0.49);
+    transform: scale(1);
+    transition: all 0.2s;
+}
+
+.no_active_button {
+    color: #464646;
+}

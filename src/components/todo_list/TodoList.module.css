@@ -1,29 +1,9 @@
 
 
-.error_message {
-    position: absolute;
-    top: 65px;
-    margin : 8px 40px;
-    color: red;
-    animation-name: fadeIn;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-
-}
 .wrapper_all_tasks {
     margin: 10px;
 }
-@keyframes fadeIn {
-    25% {
-        opacity: 1;
-        transform: translateX(-15px);
-    }
-    50% {
-        transform: translateX(15px);
-        opacity: 1;
-    }
 
-}
 .title_task {
     font-weight: bold;
     color: #2c3e50;
@@ -42,41 +22,7 @@
 }
 
 
-.error_input {
-    min-width: 170px;
-    border: 2px solid red;
-    margin: 0 5px;
-    padding: 4px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-}
-.error_input:focus {
-    color: #8f8f8f;
-    outline: none !important;
-    border: 2px solid rgba(255, 192, 203);
-    box-shadow: 0 0 6px #719ECE;
-    transition: all 0.3s ease-in-out;
-}
 
-.input_style:focus {
-    color: #8f8f8f;
-    outline: none !important;
-    border: 2px solid rgba(255, 192, 203);
-    box-shadow: 0 0 6px #719ECE;
-    transition: all 0.3s ease-in-out;
-}
-
-.input_style {
-    min-width: 170px;
-    margin: 0 5px;
-    padding: 4px;
-    border: 2px solid rgb(117, 117, 117);
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    transition: all 0.3s ease-in-out;
-}
 
 .active_button, .no_active_button {
     margin: 4px;
