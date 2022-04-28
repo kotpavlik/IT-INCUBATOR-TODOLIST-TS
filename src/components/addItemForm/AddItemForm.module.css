@@ -4,7 +4,7 @@
 
 .error_message {
     position: absolute;
-    bottom: 25px;
+    bottom: 22px;
     margin : 8px 40px;
     color: red;
     animation-name: fadeIn;

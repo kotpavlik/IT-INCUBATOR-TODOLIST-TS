@@ -77,13 +77,22 @@ function App() {
         delete tasksObj[todoListId];
         setTasksObj({...tasksObj});
     }
+    function addNewTodoLists (title:string) {
+    let newTodoList:TodoListsType = {id:v1(), title, filter:'all'};
+    let addNewTodolist = [...todoLists, newTodoList];
+    let addNewTasksObj = {...tasksObj, [newTodoList.id]:[]};
+    setTodoLists(addNewTodolist);
+    setTasksObj(addNewTasksObj);
+    }
 
 
 
     return (
         <div className="App">
             <div className="global_title"> YourToDo </div>
-            <AddItemForm addItem={(value)=>{alert(value)}}/>
+            <div className="addNewTodoLists">
+                <AddItemForm addItem={addNewTodoLists} buttonName={'add'}/>
+            </div>
             <div className="wrapper_global_all">
 
                 {todoLists.map((tl) => {

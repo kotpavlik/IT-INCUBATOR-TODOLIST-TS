@@ -80,7 +80,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                     ><DeleteOutlined/>
                     </span>
                 </h3>
-                <AddItemForm addItem={addTask}/>
+                <AddItemForm addItem={addTask} buttonName={'send'}/>
                 <ul className={style.tasks_list}>
                     {tasksListItems}
                 </ul>

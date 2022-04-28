@@ -3,6 +3,7 @@ import style from './AddItemForm.module.css';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    buttonName: string
 }
 
 export const  AddItemForm = (props: AddItemFormPropsType) => {
@@ -46,7 +47,7 @@ export const  AddItemForm = (props: AddItemFormPropsType) => {
                 onChange={onChangeHandlerTaskName}
                 onKeyPress={onKeyPressHandlerTaskName}
                 className={styleInputError}/>
-            <button onClick={addTask} className={style.no_active_button}>send</button>
+            <button onClick={addTask} className={style.no_active_button}>{props.buttonName}</button>
         </div>
     )
 }

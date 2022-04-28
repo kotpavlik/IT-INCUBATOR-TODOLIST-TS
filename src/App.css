@@ -8,6 +8,11 @@
     width: 80%;
     margin: 0 auto;
 }
+.addNewTodoLists{
+    width: 330px;
+    margin: 0 auto;
+    text-align: right;
+}
 
 .global_title {
     display: block;

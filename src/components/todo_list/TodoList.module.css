@@ -21,9 +21,6 @@
     cursor: pointer;
 }
 
-
-
-
 .active_button, .no_active_button {
     margin: 4px;
     padding: 5px 20px;
@@ -71,6 +68,7 @@
     word-wrap: break-word;
 }
 .tasks_list {
+    position: relative;
     margin: 0px;
     padding: 10px 10px;
     min-height: 100px;
@@ -90,7 +88,6 @@
 }
 .no_tasks {
     position: absolute;
-    top: 130px;
     margin : 30px 30px;
     color: black;
     font-size: 30px;
