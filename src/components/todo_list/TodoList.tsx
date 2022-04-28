@@ -3,6 +3,7 @@ import {FilterValuesType} from '../../App';
 import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
+import EditableSpan from '../editableSpan/EditableSpan.';
 
 type TodoListPropsTypeTitle = {
     todoId: string
@@ -14,6 +15,7 @@ type TodoListPropsTypeTitle = {
     addTasks: (taskName: string, todoListId: string) => void;
     changeIsDoneTask: (taskId: string, isDone: boolean, todoListId: string) => void;
     removeTodoList: (todoListId: string) => void
+    renameTodoList: (newTitle: string, todoId: string) => void
 };
 
 export type TaskType = {
@@ -44,6 +46,9 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     const addTask = (title: string) => {
         return props.addTasks(title, props.todoId)
     }
+    const editTitleHandler =(newTitle: string) => {
+        props.renameTodoList(newTitle, props.todoId)
+    }
     const tasksListItems = props.tasks.length
         ? props.tasks.map((el) => {
             const onClickRemoveTask = () => {
@@ -73,7 +78,8 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     return (
         <div className={style.wrapper_all_tasks}>
             <div className={style.wrapper_all}>
-                <h3 className={style.title_task}>{props.title}
+                <h3 className={style.title_task}>
+                    <EditableSpan title={props.title} editTitle={editTitleHandler}/>
                     <span
                         className={style.delete_task}
                         onClick={onClickRemoveTodoList}

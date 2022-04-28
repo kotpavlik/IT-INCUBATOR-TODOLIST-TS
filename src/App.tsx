@@ -84,6 +84,9 @@ function App() {
     setTodoLists(addNewTodolist);
     setTasksObj(addNewTasksObj);
     }
+    function renameTodoList(newTitle: string, todoId: string) {
+        setTodoLists(todoLists.map(el => el.id === todoId ? {...el, title : newTitle} : el))
+    }
 
 
 
@@ -115,6 +118,7 @@ function App() {
                             addTasks={addTasks}
                             changeIsDoneTask={changeIsDoneTask}
                             removeTodoList={removeTodoList}
+                            renameTodoList={renameTodoList}
                         />
                     )
                 })}</div>

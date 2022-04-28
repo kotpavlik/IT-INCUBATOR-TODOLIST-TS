@@ -10,6 +10,16 @@
     text-shadow: -4px 2px 2px rgba(0, 0, 0, 0.29);
     transition: all 0.3s;
 }
+.title_task>input,.title_task>input:focus {
+    font-weight: bold;
+    color: #2c3e50;
+    text-shadow: -4px 2px 2px rgba(0, 0, 0, 0.29);
+    transition: all 0.3s;
+    outline:none;
+    border:none;
+    border-bottom: 1px solid #2c3e50;
+
+}
 .wrapper_all>h3:hover {
     color: #4d6e8c;
     text-shadow: -6px 4px 3px rgba(0, 0, 0, 0.29);
