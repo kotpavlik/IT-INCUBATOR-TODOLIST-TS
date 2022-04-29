@@ -21,6 +21,7 @@ const EditableSpan = (props: EditableSpanPropsType) => {
     const onChangeTitleHandler = (e:ChangeEvent<HTMLInputElement>) => {
          setTitle(e.currentTarget.value)
     }
+
     return (
 
         editMode

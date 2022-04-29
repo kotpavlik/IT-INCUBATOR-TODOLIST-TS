@@ -16,6 +16,7 @@ type TodoListPropsTypeTitle = {
     changeIsDoneTask: (taskId: string, isDone: boolean, todoListId: string) => void;
     removeTodoList: (todoListId: string) => void
     renameTodoList: (newTitle: string, todoId: string) => void
+    renameTasks:(newTitle:string, taskId:string, todoListId:string) => void
 };
 
 export type TaskType = {
@@ -49,6 +50,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     const editTitleHandler =(newTitle: string) => {
         props.renameTodoList(newTitle, props.todoId)
     }
+
     const tasksListItems = props.tasks.length
         ? props.tasks.map((el) => {
             const onClickRemoveTask = () => {
@@ -57,12 +59,16 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
             const onClickIsDoneTask = (e: ChangeEvent<HTMLInputElement>) => {
                 props.changeIsDoneTask(el.id, e.currentTarget.checked, props.todoId);
             }
+            const editTitleTasksHandler = (newTitle: string) => {
+                props.renameTasks(newTitle, el.id, props.todoId)
+            }
             return (
                 <li key={el.id} className={style.task}>
                     <input type="checkbox" checked={el.isDone} onChange={onClickIsDoneTask}/>
+
                     <span
-                        className={el.isDone ? '' : style.IsDone_false}>
-                                    {el.title}</span>
+                        className={el.isDone ? style.IsDone : style.IsDone_false}>
+                                    <EditableSpan title={el.title} editTitle={editTitleTasksHandler}/></span>
                     <button onClick={onClickRemoveTask}
                             className={`${style.no_active_button} ${style.del}`}>✖️
                     </button>

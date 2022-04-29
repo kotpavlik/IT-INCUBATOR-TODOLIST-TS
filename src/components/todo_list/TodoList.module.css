@@ -1,5 +1,4 @@
 
-
 .wrapper_all_tasks {
     margin: 10px;
 }
@@ -10,25 +9,31 @@
     text-shadow: -4px 2px 2px rgba(0, 0, 0, 0.29);
     transition: all 0.3s;
 }
-.title_task>input,.title_task>input:focus {
+
+.title_task > input, .title_task > input:focus {
     font-weight: bold;
     color: #2c3e50;
     text-shadow: -4px 2px 2px rgba(0, 0, 0, 0.29);
     transition: all 0.3s;
-    outline:none;
-    border:none;
+    outline: none;
+    border: none;
     border-bottom: 1px solid #2c3e50;
 
 }
-.wrapper_all>h3:hover {
+
+.wrapper_all > h3:hover {
     color: #4d6e8c;
     text-shadow: -6px 4px 3px rgba(0, 0, 0, 0.29);
     transition: all 0.3s;
 }
-.wrapper_all>h3 {
+
+.wrapper_all > h3 {
     text-align: right;
     user-select: none;
     cursor: pointer;
+}
+.wrapper_all {
+    min-width: 280px;
 }
 
 .active_button, .no_active_button {
@@ -73,32 +78,43 @@
     justify-content: space-between;
 
 }
-.task>span{
+
+.task > span {
     max-width: 200px;
     word-wrap: break-word;
 }
+
 .tasks_list {
     position: relative;
     margin: 0px;
     padding: 10px 10px;
     min-height: 100px;
-    transition:height 3s;
+    transition: height 3s;
 
 }
-.del{
+
+.del {
     margin: 2px;
     height: 30px;
     width: 30px;
     padding: 0.5px;
-    border-radius:50%;
+    border-radius: 50%;
 
 }
-.IsDone_false{
+
+.IsDone_false {
     opacity: 50%;
 }
+
+.IsDone > input, .IsDone_false > input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #2c3e50;
+}
+
 .no_tasks {
     position: absolute;
-    margin : 30px 30px;
+    margin: 30px 30px;
     color: black;
     font-size: 30px;
     animation-name: noTasks;
@@ -118,17 +134,20 @@
         opacity: 1;
     }
 }
+
 .delete_task {
     transition: 0.3s;
     margin-left: 10px;
 }
+
 .delete_task:hover {
     color: rgba(0, 0, 0, 0.42);
     cursor: pointer;
-    transition:all 0.3s;
+    transition: all 0.3s;
 }
+
 .delete_task:active {
     color: red;
     cursor: pointer;
-    transition:all 0.3s;
+    transition: all 0.3s;
 }
