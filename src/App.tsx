@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import './App.css';
 import TodoList, {TaskType} from './components/todo_list/TodoList';
 import {v1} from 'uuid';
-// @ts-ignore
 import {AddItemForm} from "./components/addItemForm/AddItemForm";
 
 
