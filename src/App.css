@@ -1,6 +1,13 @@
 .App {
     display: block;
 }
+.title_plus_lottie {
+    display:flex;
+    flex-direction: row;
+    justify-content:center;
+    position: relative;
+    margin-top:20px;
+}
 
 .wrapper_global_all {
     padding: 30px;

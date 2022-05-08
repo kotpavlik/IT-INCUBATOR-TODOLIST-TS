@@ -3,6 +3,8 @@ import './App.css';
 import TodoList, {TaskType} from './components/todo_list/TodoList';
 import {v1} from 'uuid';
 import {AddItemForm} from "./components/addItemForm/AddItemForm";
+import {ExampleAnimation} from './components/lottie/LottieAnimation';
+import { title } from 'process';
 
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -95,7 +97,10 @@ function App() {
 
     return (
         <div className="App">
-            <div className="global_title"> YourToDo </div>
+
+            <div className="title_plus_lottie">
+                <div className="global_title"> YourToDo</div>
+                <span><ExampleAnimation/></span></div>
             <div className="addNewTodoLists">
                 <AddItemForm addItem={addNewTodoLists} buttonName={'add'}/>
             </div>
