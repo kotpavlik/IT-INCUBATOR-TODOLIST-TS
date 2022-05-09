@@ -4,6 +4,14 @@ import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
 import EditableSpan from '../editableSpan/EditableSpan.';
+import {IconButton} from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
 
 type TodoListPropsTypeTitle = {
     todoId: string
@@ -26,6 +34,7 @@ export type TaskType = {
     title: string;
     isDone: boolean;
 };
+
 
 
 const TodoList = (props: TodoListPropsTypeTitle) => {
@@ -56,22 +65,27 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
             const onClickRemoveTask = () => {
                 props.removeTasks(el.id, props.todoId);
             };
-            const onClickIsDoneTask = (e: ChangeEvent<HTMLInputElement>) => {
+            const onClickIsDoneTask = (e:ChangeEvent<HTMLInputElement>) => {
                 props.changeIsDoneTask(el.id, e.currentTarget.checked, props.todoId);
             }
             const editTitleTasksHandler = (newTitle: string) => {
                 props.renameTasks(newTitle, el.id, props.todoId)
             }
+
+
+
             return (
                 <li key={el.id} className={style.task}>
-                    <input type="checkbox" checked={el.isDone} onChange={onClickIsDoneTask}/>
+                    <Checkbox {...label} defaultChecked size="small" checked={el.isDone}
+                              onChange={onClickIsDoneTask} />
 
                     <span
                         className={el.isDone ? style.IsDone : style.IsDone_false}>
                                     <EditableSpan title={el.title} editTitle={editTitleTasksHandler}/></span>
-                    <button onClick={onClickRemoveTask}
-                            className={`${style.no_active_button} ${style.del}`}>✖️
-                    </button>
+
+                    <IconButton aria-label="delete" size="small"  onClick={onClickRemoveTask}>
+                        <DeleteIcon fontSize="small" />
+                    </IconButton>
                 </li>
             );
         })

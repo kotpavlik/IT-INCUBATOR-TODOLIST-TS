@@ -76,6 +76,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items:center;
 
 }
 
@@ -104,6 +105,7 @@
 
 .IsDone_false {
     opacity: 50%;
+
 }
 
 .IsDone > input, .IsDone_false > input {
