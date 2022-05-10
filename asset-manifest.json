@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/IT-INCUBATOR-TODOLIST-TS/static/css/main.9dd9daa5.chunk.css",
+    "main.css": "/IT-INCUBATOR-TODOLIST-TS/static/css/main.8ae236eb.chunk.css",
     "main.js": "/IT-INCUBATOR-TODOLIST-TS/static/js/main.1ac85550.chunk.js",
     "main.js.map": "/IT-INCUBATOR-TODOLIST-TS/static/js/main.1ac85550.chunk.js.map",
     "runtime-main.js": "/IT-INCUBATOR-TODOLIST-TS/static/js/runtime-main.2e5dee25.js",
@@ -8,15 +8,15 @@
     "static/js/2.a445cd6c.chunk.js": "/IT-INCUBATOR-TODOLIST-TS/static/js/2.a445cd6c.chunk.js",
     "static/js/2.a445cd6c.chunk.js.map": "/IT-INCUBATOR-TODOLIST-TS/static/js/2.a445cd6c.chunk.js.map",
     "index.html": "/IT-INCUBATOR-TODOLIST-TS/index.html",
-    "precache-manifest.e2c160ed6fb7205e4dba5f86d882873e.js": "/IT-INCUBATOR-TODOLIST-TS/precache-manifest.e2c160ed6fb7205e4dba5f86d882873e.js",
+    "precache-manifest.0912b3979137f57040239e84c6a204af.js": "/IT-INCUBATOR-TODOLIST-TS/precache-manifest.0912b3979137f57040239e84c6a204af.js",
     "service-worker.js": "/IT-INCUBATOR-TODOLIST-TS/service-worker.js",
-    "static/css/main.9dd9daa5.chunk.css.map": "/IT-INCUBATOR-TODOLIST-TS/static/css/main.9dd9daa5.chunk.css.map",
+    "static/css/main.8ae236eb.chunk.css.map": "/IT-INCUBATOR-TODOLIST-TS/static/css/main.8ae236eb.chunk.css.map",
     "static/js/2.a445cd6c.chunk.js.LICENSE.txt": "/IT-INCUBATOR-TODOLIST-TS/static/js/2.a445cd6c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2e5dee25.js",
     "static/js/2.a445cd6c.chunk.js",
-    "static/css/main.9dd9daa5.chunk.css",
+    "static/css/main.8ae236eb.chunk.css",
     "static/js/main.1ac85550.chunk.js"
   ]
 }
