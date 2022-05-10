@@ -1,6 +1,15 @@
 
 .wrapper_all_tasks {
     margin: 10px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.5s;
+}
+
+.wrapper_all_tasks:hover {
+    box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.6);
+    transition: box-shadow 0.5s;
 }
 
 .title_task {
@@ -32,8 +41,10 @@
     user-select: none;
     cursor: pointer;
 }
+
 .wrapper_all {
     min-width: 280px;
+
 }
 
 .active_button, .no_active_button {
@@ -76,7 +87,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
 
 }
 
