@@ -75,7 +75,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
 
             return (
                 <li key={el.id} className={style.task}>
-                    <Checkbox {...label} defaultChecked size="small" checked={el.isDone}
+                    <Checkbox {...label}  size="small" checked={el.isDone}
                               onChange={onClickIsDoneTask} />
 
                     <span
