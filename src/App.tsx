@@ -19,6 +19,7 @@ import {
     removeTodoListAndTasksAC, renameTasksAC,
     tasksReducer
 } from './reducers/Tasks-reducer';
+import {setToLocalStorage} from './localStorage/LocalStorage';
 
 
 export type FilterValuesType = 'all' | 'active' | 'completed';
@@ -55,7 +56,7 @@ function App() {
         [
             {id: tasksID_1, title: 'What learn', filter: 'all'},
             {id: tasksID_2, title: 'What buy', filter: 'all'}
-        ]);
+        ],getTodoListsLocalStorage);
 
     let [tasksObj, dispatchTasksObj] = useReducer(tasksReducer, {
             [tasksID_1]: [
@@ -69,16 +70,12 @@ function App() {
                 {id: v1(), title: 'Bread', isDone: true},
                 {id: v1(), title: 'Milk', isDone: false}
             ]
-        }
+        },getTasksObjLocalStorage
     );
 
 
-    useEffect(() => {
-        localStorage.setItem('value_todoLists', JSON.stringify(todoLists))
-    }, [todoLists]);
-    useEffect(() => {
-        localStorage.setItem('value_tasks', JSON.stringify(tasksObj))
-    }, [tasksObj]);
+    useEffect(() => {setToLocalStorage('value_todoLists',todoLists)}, [todoLists]);
+    useEffect(() => { setToLocalStorage('value_tasks',tasksObj)}, [tasksObj]);
 
     function removeTasks(id: string, todoListId: string) {
         dispatchTasksObj(removeTasksAC(id,todoListId))
