@@ -2,17 +2,13 @@ import {TasksObjType} from '../App';
 import {v1} from 'uuid';
 
 
-type ActionType = {
-    type: string
-    payload?: any
-}
 
-export const tasksReducer = (state: TasksObjType, action: ActionType | tasksReducerACTYpe): TasksObjType => {
+
+export const tasksReducer = (state: TasksObjType, action: tasksReducerACType): TasksObjType => {
     switch (action.type) {
         case 'REMOVE_TASKS': {
             let tasks = state[action.payload.todoListId];
-            let filteredTasks = tasks.filter((el) => el.id !== action.payload.id);
-            state[action.payload.todoListId] = filteredTasks;
+            state[action.payload.todoListId] = tasks.filter((el) => el.id !== action.payload.id);
             return {...state}
         }
         case 'ADD_TASKS': {
@@ -49,7 +45,7 @@ export const tasksReducer = (state: TasksObjType, action: ActionType | tasksRedu
     }
 }
 
-type tasksReducerACTYpe = removeTasksACType | addTasksACType | changeIsDoneTaskAC |
+type tasksReducerACType = removeTasksACType | addTasksACType | changeIsDoneTaskAC |
     removeTodoListAndTasksACType | addNewTodoListsAndTasksACType | renameTasksACType
 type removeTasksACType = ReturnType<typeof removeTasksAC>
 export const removeTasksAC = (id: string, todoListId: string) => {
@@ -88,7 +84,7 @@ export const addNewTodoListsAndTasksAC =(title:string,id:string)=> {
     return {
         type: 'ADD_NEW_TODO_LIST_AND_TASKS',
         payload: {title,id}
-    }
+    } as const
 }
 
 type renameTasksACType = ReturnType<typeof renameTasksAC>
@@ -96,6 +92,6 @@ export const renameTasksAC =(newTitle:string,taskId:string,todoListId:string)=> 
     return {
         type: 'RENAME_TASKS',
         payload: {newTitle,taskId,todoListId}
-    }
+    } as const
 }
 
