@@ -80,10 +80,10 @@ export const removeTodoListAndTasksAC = (todoListId:string) => {
 }
 
 type addNewTodoListsAndTasksACType = ReturnType<typeof addNewTodoListsAndTasksAC>
-export const addNewTodoListsAndTasksAC =(title:string,id:string)=> {
+export const addNewTodoListsAndTasksAC =(id:string)=> {
     return {
         type: 'ADD_NEW_TODO_LIST_AND_TASKS',
-        payload: {title,id}
+        payload: {id}
     } as const
 }
 

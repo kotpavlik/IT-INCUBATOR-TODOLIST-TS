@@ -56,7 +56,7 @@ function App() {
         [
             {id: tasksID_1, title: 'What learn', filter: 'all'},
             {id: tasksID_2, title: 'What buy', filter: 'all'}
-        ],getTodoListsLocalStorage);
+        ], getTodoListsLocalStorage);
 
     let [tasksObj, dispatchTasksObj] = useReducer(tasksReducer, {
             [tasksID_1]: [
@@ -70,29 +70,33 @@ function App() {
                 {id: v1(), title: 'Bread', isDone: true},
                 {id: v1(), title: 'Milk', isDone: false}
             ]
-        },getTasksObjLocalStorage
+        }, getTasksObjLocalStorage
     );
 
 
-    useEffect(() => {setToLocalStorage('value_todoLists',todoLists)}, [todoLists]);
-    useEffect(() => { setToLocalStorage('value_tasks',tasksObj)}, [tasksObj]);
+    useEffect(() => {
+        setToLocalStorage('value_todoLists', todoLists)
+    }, [todoLists]);
+    useEffect(() => {
+        setToLocalStorage('value_tasks', tasksObj)
+    }, [tasksObj]);
 
     function removeTasks(id: string, todoListId: string) {
-        dispatchTasksObj(removeTasksAC(id,todoListId))
+        dispatchTasksObj(removeTasksAC(id, todoListId))
     }
 
     function addTasks(taskName: string, todoListId: string) {
-        dispatchTasksObj( addTasksAC(taskName,todoListId))
+        dispatchTasksObj(addTasksAC(taskName, todoListId))
     }
 
     function changeFilter(value: FilterValuesType, todoListId: string) {
-        dispatchTodoLists(changeFilterTaskAC(value,todoListId))
+        dispatchTodoLists(changeFilterTaskAC(value, todoListId))
 
     }
 
     function changeIsDoneTask(taskId: string, isDone: boolean, todoListId: string) {
 
-        dispatchTasksObj(changeIsDoneTaskAC(taskId,isDone,todoListId))
+        dispatchTasksObj(changeIsDoneTaskAC(taskId, isDone, todoListId))
     }
 
     function removeTodoList(todoListId: string) {
@@ -101,15 +105,17 @@ function App() {
     }
 
     function addNewTodoLists(title: string) {
-        let id:string= v1();
-        dispatchTodoLists(addNewTodoListsAC(title,id))
-        dispatchTasksObj(addNewTodoListsAndTasksAC(title,id))
+        let id: string = v1();
+        dispatchTodoLists(addNewTodoListsAC(title, id))
+        dispatchTasksObj(addNewTodoListsAndTasksAC(id))
     }
+
     function renameTodoList(newTitle: string, todoListId: string) {
-        dispatchTodoLists(renameTodoListAC(newTitle,todoListId))
+        dispatchTodoLists(renameTodoListAC(newTitle, todoListId))
     }
+
     function renameTasks(newTitle: string, taskId: string, todoListId: string) {
-        dispatchTasksObj(renameTasksAC(newTitle,taskId,todoListId))
+        dispatchTasksObj(renameTasksAC(newTitle, taskId, todoListId))
     }
 
 
@@ -125,7 +131,7 @@ function App() {
             </div>
             <div className="wrapper_global_all">
 
-                {todoLists.map((tl:TodoListsType) => {
+                {todoLists.map((tl: TodoListsType) => {
                     let tasksForTodoList = tasksObj[tl.id];
                     if (tl.filter === 'active') {
                         tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === false);
