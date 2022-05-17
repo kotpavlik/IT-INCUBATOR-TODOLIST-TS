@@ -78,5 +78,6 @@ test('correct rename todo list', () => {
  expect(finalState).not.toBe(initialStateTDL)
  expect(finalState[0].title).toBe(newTitle)
  expect(finalState.length === 2).toBe(true)
+
 })
 
