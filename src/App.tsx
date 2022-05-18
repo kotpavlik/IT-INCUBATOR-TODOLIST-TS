@@ -140,7 +140,7 @@ function App() {
                         tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === true);
                     }
                     return (
-                        <TodoList
+                        <TodoListMemo
                             key={tl.id}
                             todoId={tl.id}
                             title={tl.title}
@@ -161,3 +161,4 @@ function App() {
 }
 
 export default App;
+const TodoListMemo = React.memo(TodoList)
