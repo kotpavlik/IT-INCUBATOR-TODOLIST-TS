@@ -75,9 +75,11 @@ function App() {
 
 
     useEffect(() => {
+        if(todoLists)
         setToLocalStorage('value_todoLists', todoLists)
     }, [todoLists]);
     useEffect(() => {
+        if(tasksObj)
         setToLocalStorage('value_tasks', tasksObj)
     }, [tasksObj]);
 
@@ -131,7 +133,7 @@ function App() {
             </div>
             <div className="wrapper_global_all">
 
-                {todoLists.map((tl: TodoListsType) => {
+                {todoLists ? todoLists.map((tl: TodoListsType) => {
                     let tasksForTodoList = tasksObj[tl.id];
                     if (tl.filter === 'active') {
                         tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === false);
@@ -155,7 +157,8 @@ function App() {
                             renameTasks={renameTasks}
                         />
                     )
-                })}</div>
+                }) : <div></div>}
+            </div>
         </div>
     );
 }
