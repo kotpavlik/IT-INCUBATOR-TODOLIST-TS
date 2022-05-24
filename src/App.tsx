@@ -51,8 +51,6 @@ function App() {
     const dispatch = useDispatch();
     const tasksObj = useSelector<AppStateType,TasksObjType>(state => state.tasks)
     const todoLists = useSelector<AppStateType,Array<TodoListsType>>(state => state.todoLists)
-
-
     useEffect(() => {
         if(todoLists)
         setToLocalStorage('value_todoLists', todoLists)
@@ -62,41 +60,13 @@ function App() {
         setToLocalStorage('value_tasks', tasksObj)
     }, [tasksObj]);
 
-    function removeTasks(id: string, todoListId: string) {
-        dispatch(removeTasksAC(id, todoListId))
-    }
 
-    function addTasks(taskName: string, todoListId: string) {
-        dispatch(addTasksAC(taskName, todoListId))
-    }
 
-    function changeFilter(value: FilterValuesType, todoListId: string) {
-        dispatch(changeFilterTaskAC(value, todoListId))
-
-    }
-
-    function changeIsDoneTask(taskId: string, isDone: boolean, todoListId: string) {
-
-        dispatch(changeIsDoneTaskAC(taskId, isDone, todoListId))
-    }
-
-    function removeTodoList(todoListId: string) {
-        dispatch(removeTodoListAC(todoListId))
-        dispatch(removeTodoListAndTasksAC(todoListId))
-    }
 
     function addNewTodoLists(title: string) {
         let id: string = v1();
         dispatch(addNewTodoListsAC(title, id))
         dispatch(addNewTodoListsAndTasksAC(id))
-    }
-
-    function renameTodoList(newTitle: string, todoListId: string) {
-        dispatch(renameTodoListAC(newTitle, todoListId))
-    }
-
-    function renameTasks(newTitle: string, taskId: string, todoListId: string) {
-        dispatch(renameTasksAC(newTitle, taskId, todoListId))
     }
 
 
@@ -126,13 +96,6 @@ function App() {
                             title={tl.title}
                             tasks={tasksForTodoList}
                             filter={tl.filter}
-                            removeTasks={removeTasks}
-                            changeFilter={changeFilter}
-                            addTasks={addTasks}
-                            changeIsDoneTask={changeIsDoneTask}
-                            removeTodoList={removeTodoList}
-                            renameTodoList={renameTodoList}
-                            renameTasks={renameTasks}
                         />
                     )
                 }) : <div></div>}

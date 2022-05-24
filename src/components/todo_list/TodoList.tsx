@@ -7,8 +7,16 @@ import EditableSpan from '../editableSpan/EditableSpan.';
 import {IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
-
-
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../reducers/store';
+import {changeFilterTaskAC, removeTodoListAC, renameTodoListAC} from '../../reducers/TodoLists-reducer';
+import {
+    addTasksAC,
+    changeIsDoneTaskAC,
+    removeTasksAC,
+    removeTodoListAndTasksAC,
+    renameTasksAC
+} from '../../reducers/Tasks-reducer';
 const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 
@@ -17,13 +25,6 @@ type TodoListPropsTypeTitle = {
     title: string;
     tasks: Array<TaskType>;
     filter: FilterValuesType;
-    removeTasks: (id: string, todoListId: string) => void;
-    changeFilter: (value: FilterValuesType, todoListId: string) => void;
-    addTasks: (taskName: string, todoListId: string) => void;
-    changeIsDoneTask: (taskId: string, isDone: boolean, todoListId: string) => void;
-    removeTodoList: (todoListId: string) => void
-    renameTodoList: (newTitle: string, todoId: string) => void
-    renameTasks:(newTitle:string, taskId:string, todoListId:string) => void
 };
 
 export type TaskType = {
@@ -38,37 +39,32 @@ export type TaskType = {
 
 const TodoList = (props: TodoListPropsTypeTitle) => {
 
+    const dispatch = useDispatch();
+    const tasks = useSelector<AppStateType,Array<TaskType>>( state => state.tasks[props.todoId])
 
-    const onClickAllHandler = () => {
-        props.changeFilter('all', props.todoId)
-    };
-    const onClickActiveHandler = () => {
-        props.changeFilter('active', props.todoId)
-    };
-    const onClickCompletedHandler = () => {
-        props.changeFilter('completed', props.todoId)
-    };
+
     const onClickRemoveTodoList = () => {
-        props.removeTodoList(props.todoId)
+        dispatch(removeTodoListAC(props.todoId))
+        dispatch(removeTodoListAndTasksAC(props.todoId))
 
     }
     const addTask = (title: string) => {
-        return props.addTasks(title, props.todoId)
+        dispatch(addTasksAC(title, props.todoId))
     }
     const editTitleHandler =(newTitle: string) => {
-        props.renameTodoList(newTitle, props.todoId)
+        dispatch(renameTodoListAC(newTitle, props.todoId))
     }
 
-    const tasksListItems = props.tasks.length
-        ? props.tasks.map((el) => {
+    const tasksListItems = tasks.length
+        ? tasks.map((el) => {
             const onClickRemoveTask = () => {
-                props.removeTasks(el.id, props.todoId);
+                dispatch(removeTasksAC(el.id, props.todoId))
             };
             const onClickIsDoneTask = (e:ChangeEvent<HTMLInputElement>) => {
-                props.changeIsDoneTask(el.id, e.currentTarget.checked, props.todoId);
+                dispatch(changeIsDoneTaskAC(el.id,  e.currentTarget.checked, props.todoId))
             }
             const editTitleTasksHandler = (newTitle: string) => {
-                props.renameTasks(newTitle, el.id, props.todoId)
+                dispatch(renameTasksAC(newTitle, el.id, props.todoId))
             }
 
 
@@ -112,15 +108,15 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                 <div>
                     <button
                         className={styleButtonAllActive}
-                        onClick={onClickAllHandler}>All
+                        onClick={()=> {dispatch(changeFilterTaskAC('all', props.todoId))}}>All
                     </button>
                     <button
                         className={styleButtonActiveActive}
-                        onClick={onClickActiveHandler}>Active
+                        onClick={()=> {dispatch(changeFilterTaskAC('active', props.todoId))}}>Active
                     </button>
                     <button
                         className={styleButtonCompletedActive}
-                        onClick={onClickCompletedHandler}>Completed
+                        onClick={()=> {dispatch(changeFilterTaskAC('completed', props.todoId))}}>Completed
                     </button>
 
                 </div>
