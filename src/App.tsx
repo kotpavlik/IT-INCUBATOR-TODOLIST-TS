@@ -6,16 +6,11 @@ import {AddItemForm} from './components/addItemForm/AddItemForm';
 import {ExampleAnimation} from './components/lottie/LottieAnimation';
 import {
     addNewTodoListsAC,
-    changeFilterTaskAC,
-    removeTodoListAC,
-    renameTodoListAC,
+
 } from './reducers/TodoLists-reducer';
 import {
     addNewTodoListsAndTasksAC,
-    addTasksAC,
-    changeIsDoneTaskAC,
-    removeTasksAC,
-    removeTodoListAndTasksAC, renameTasksAC,
+
 } from './reducers/Tasks-reducer';
 import {setToLocalStorage} from './localStorage/LocalStorage';
 import {useDispatch, useSelector} from 'react-redux';

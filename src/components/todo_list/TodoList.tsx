@@ -43,6 +43,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     const tasks = useSelector<AppStateType,Array<TaskType>>( state => state.tasks[props.todoId])
 
 
+
     const onClickRemoveTodoList = () => {
         dispatch(removeTodoListAC(props.todoId))
         dispatch(removeTodoListAndTasksAC(props.todoId))
@@ -55,8 +56,8 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
         dispatch(renameTodoListAC(newTitle, props.todoId))
     }
 
-    const tasksListItems = tasks.length
-        ? tasks.map((el) => {
+    const tasksListItems = props.tasks.length
+        ? props.tasks.map((el) => {
             const onClickRemoveTask = () => {
                 dispatch(removeTasksAC(el.id, props.todoId))
             };

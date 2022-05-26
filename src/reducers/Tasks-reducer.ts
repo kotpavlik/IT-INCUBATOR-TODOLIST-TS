@@ -8,9 +8,7 @@ const initialState:initialState = {
 export const tasksReducer = (state: TasksObjType = getTasksObjLocalStorage() || initialState, action: tasksReducerACType): TasksObjType => {
     switch (action.type) {
         case 'REMOVE_TASKS': {
-            let tasks = state[action.payload.todoListId];
-            state[action.payload.todoListId] = tasks.filter((el) => el.id !== action.payload.id);
-            return {...state}
+            return {...state,[action.payload.todoListId]:state[action.payload.todoListId].filter((el) => el.id !== action.payload.id)}
         }
         case 'ADD_TASKS': {
             return {
