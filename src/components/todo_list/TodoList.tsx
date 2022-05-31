@@ -40,9 +40,6 @@ export type TaskType = {
 const TodoList = (props: TodoListPropsTypeTitle) => {
 
     const dispatch = useDispatch();
-    const tasks = useSelector<AppStateType,Array<TaskType>>( state => state.tasks[props.todoId])
-
-
 
     const onClickRemoveTodoList = () => {
         dispatch(removeTodoListAC(props.todoId))

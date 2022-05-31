@@ -1,11 +1,11 @@
-import {getTasksObjLocalStorage, TasksObjType} from '../App';
+import {TasksObjType} from '../App';
 import {v1} from 'uuid';
 
 type initialState = TasksObjType
 const initialState:initialState = {
 }
 
-export const tasksReducer = (state: TasksObjType = getTasksObjLocalStorage() || initialState, action: tasksReducerACType): TasksObjType => {
+export const tasksReducer = (state: TasksObjType =  initialState, action: tasksReducerACType): TasksObjType => {
     switch (action.type) {
         case 'REMOVE_TASKS': {
             return {...state,[action.payload.todoListId]:state[action.payload.todoListId].filter((el) => el.id !== action.payload.id)}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import TodoList, {TaskType} from './components/todo_list/TodoList';
 import {v1} from 'uuid';
@@ -12,7 +12,6 @@ import {
     addNewTodoListsAndTasksAC,
 
 } from './reducers/Tasks-reducer';
-import {setToLocalStorage} from './localStorage/LocalStorage';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from './reducers/store';
 
@@ -27,35 +26,10 @@ export type TasksObjType = {
     [key: string]: Array<TaskType>
 }
 
-export  const getTasksObjLocalStorage = () => {
-    let newValue_tasksObj = localStorage.getItem('value_tasks');
-    if (newValue_tasksObj) {
-        let new_start_value = JSON.parse(newValue_tasksObj);
-        return new_start_value
-    }
-}
-export const getTodoListsLocalStorage = () => {
-    let newValue_todoLists = localStorage.getItem('value_todoLists');
-    if (newValue_todoLists) {
-        let new_start_value = JSON.parse(newValue_todoLists);
-        return new_start_value
-    }
-}
-
 function App() {
     const dispatch = useDispatch();
     const tasksObj = useSelector<AppStateType,TasksObjType>(state => state.tasks)
     const todoLists = useSelector<AppStateType,Array<TodoListsType>>(state => state.todoLists)
-    useEffect(() => {
-        if(todoLists)
-        setToLocalStorage('value_todoLists', todoLists)
-    }, [todoLists]);
-    useEffect(() => {
-        if(tasksObj)
-        setToLocalStorage('value_tasks', tasksObj)
-    }, [tasksObj]);
-
-
 
 
     function addNewTodoLists(title: string) {
@@ -63,7 +37,6 @@ function App() {
         dispatch(addNewTodoListsAC(title, id))
         dispatch(addNewTodoListsAndTasksAC(id))
     }
-
 
     return (
         <div className="App">
