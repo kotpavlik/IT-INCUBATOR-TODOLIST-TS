@@ -7,8 +7,7 @@ import EditableSpan from '../editableSpan/EditableSpan.';
 import {IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppStateType} from '../../reducers/store';
+import {useDispatch} from 'react-redux';
 import {changeFilterTaskAC, removeTodoListAC, renameTodoListAC} from '../../reducers/TodoLists-reducer';
 import {
     addTasksAC,
