@@ -16,7 +16,8 @@ import {
     removeTodoListAndTasksAC,
     renameTasksAC
 } from '../../reducers/Tasks-reducer';
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 
 type TodoListPropsTypeTitle = {
@@ -35,7 +36,6 @@ export type TaskType = {
 };
 
 
-
 const TodoList = (props: TodoListPropsTypeTitle) => {
 
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     const addTask = (title: string) => {
         dispatch(addTasksAC(title, props.todoId))
     }
-    const editTitleHandler =(newTitle: string) => {
+    const editTitleHandler = (newTitle: string) => {
         dispatch(renameTodoListAC(newTitle, props.todoId))
     }
 
@@ -57,26 +57,25 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
             const onClickRemoveTask = () => {
                 dispatch(removeTasksAC(el.id, props.todoId))
             };
-            const onClickIsDoneTask = (e:ChangeEvent<HTMLInputElement>) => {
-                dispatch(changeIsDoneTaskAC(el.id,  e.currentTarget.checked, props.todoId))
+            const onClickIsDoneTask = (e: ChangeEvent<HTMLInputElement>) => {
+                dispatch(changeIsDoneTaskAC(el.id, e.currentTarget.checked, props.todoId))
             }
             const editTitleTasksHandler = (newTitle: string) => {
                 dispatch(renameTasksAC(newTitle, el.id, props.todoId))
             }
 
 
-
             return (
                 <li key={el.id} className={style.task}>
-                    <Checkbox {...label}  size="small" checked={el.isDone}
-                              onChange={onClickIsDoneTask} />
+                    <Checkbox {...label} size="small" checked={el.isDone}
+                              onChange={onClickIsDoneTask}/>
 
                     <span
                         className={el.isDone ? style.IsDone : style.IsDone_false}>
                                     <EditableSpan title={el.title} editTitle={editTitleTasksHandler}/></span>
 
-                    <IconButton aria-label="delete" size="small"  onClick={onClickRemoveTask}>
-                        <DeleteIcon fontSize="small" />
+                    <IconButton aria-label="delete" size="small" onClick={onClickRemoveTask}>
+                        <DeleteIcon fontSize="small"/>
                     </IconButton>
                 </li>
             );
@@ -105,15 +104,21 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                 <div>
                     <button
                         className={styleButtonAllActive}
-                        onClick={()=> {dispatch(changeFilterTaskAC('all', props.todoId))}}>All
+                        onClick={() => {
+                            dispatch(changeFilterTaskAC('all', props.todoId))
+                        }}>All
                     </button>
                     <button
                         className={styleButtonActiveActive}
-                        onClick={()=> {dispatch(changeFilterTaskAC('active', props.todoId))}}>Active
+                        onClick={() => {
+                            dispatch(changeFilterTaskAC('active', props.todoId))
+                        }}>Active
                     </button>
                     <button
                         className={styleButtonCompletedActive}
-                        onClick={()=> {dispatch(changeFilterTaskAC('completed', props.todoId))}}>Completed
+                        onClick={() => {
+                            dispatch(changeFilterTaskAC('completed', props.todoId))
+                        }}>Completed
                     </button>
 
                 </div>

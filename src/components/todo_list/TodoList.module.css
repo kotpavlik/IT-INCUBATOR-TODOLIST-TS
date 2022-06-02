@@ -7,7 +7,7 @@
     box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.6);
     transition: box-shadow 0.5s;
 }
-
+/*interesting comment for push */
 .wrapper_all_tasks:hover {
     box-shadow: -6px 6px 10px rgba(0, 0, 0, 0.6);
     transition: box-shadow 0.5s;
