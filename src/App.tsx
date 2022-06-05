@@ -51,12 +51,7 @@ function App() {
 
                 {todoLists ? todoLists.map((tl: TodoListsType) => {
                     let tasksForTodoList = tasksObj[tl.id];
-                    if (tl.filter === 'active') {
-                        tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === false);
-                    }
-                    if (tl.filter === 'completed') {
-                        tasksForTodoList = tasksForTodoList.filter((el) => el.isDone === true);
-                    }
+
                     return (
                         <TodoListMemo
                             key={tl.id}
