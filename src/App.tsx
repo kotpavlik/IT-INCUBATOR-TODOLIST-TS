@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import TodoList, {TaskType} from './components/todo_list/TodoList';
 import {v1} from 'uuid';
@@ -32,11 +32,11 @@ function App() {
     const todoLists = useSelector<AppStateType,Array<TodoListsType>>(state => state.todoLists)
 
 
-    function addNewTodoLists(title: string) {
+    const  addNewTodoLists = useCallback((title: string) => {
         let id: string = v1();
         dispatch(addNewTodoListsAC(title, id))
         dispatch(addNewTodoListsAndTasksAC(id))
-    }
+    }, [dispatch])
 
     return (
         <div className="App">

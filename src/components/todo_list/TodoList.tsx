@@ -43,11 +43,12 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     const onClickRemoveTodoList = () => {
         dispatch(removeTodoListAC(props.todoId))
         dispatch(removeTodoListAndTasksAC(props.todoId))
-
     }
+
     const addTask = (title: string) => {
         dispatch(addTasksAC(title, props.todoId))
     }
+
     const editTitleHandler = (newTitle: string) => {
         dispatch(renameTodoListAC(newTitle, props.todoId))
     }
