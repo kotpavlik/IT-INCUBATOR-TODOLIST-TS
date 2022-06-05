@@ -1,5 +1,5 @@
-import React, {ChangeEvent} from 'react';
-import {FilterValuesType, TodoListsType} from '../../App';
+import React, {ChangeEvent, useCallback} from 'react';
+import {FilterValuesType} from '../../App';
 import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
@@ -40,18 +40,18 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
 
     const dispatch = useDispatch();
 
-    const onClickRemoveTodoList = () => {
+    const onClickRemoveTodoList = useCallback(() => {
         dispatch(removeTodoListAC(props.todoId))
         dispatch(removeTodoListAndTasksAC(props.todoId))
-    }
+    },[dispatch])
 
-    const addTask = (title: string) => {
-        dispatch(addTasksAC(title, props.todoId))
-    }
+    const addTask = useCallback((title: string) => {
+        dispatch(addTasksAC(title, props.todoId))},[dispatch])
 
-    const editTitleHandler = (newTitle: string) => {
+
+    const editTitleHandler = useCallback((newTitle: string) => {
         dispatch(renameTodoListAC(newTitle, props.todoId))
-    }
+    },[dispatch])
     let tasksForTodoList = props.tasks;
     if (props.filter === 'active') {
         tasksForTodoList = props.tasks.filter((el) => el.isDone === false);
