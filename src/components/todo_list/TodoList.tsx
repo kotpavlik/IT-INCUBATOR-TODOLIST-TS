@@ -1,23 +1,18 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {useCallback} from 'react';
 import {FilterValuesType} from '../../App';
 import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
 import EditableSpan from '../editableSpan/EditableSpan.';
-import {IconButton} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Checkbox from '@mui/material/Checkbox';
 import {useDispatch} from 'react-redux';
 import {changeFilterTaskAC, removeTodoListAC, renameTodoListAC} from '../../reducers/TodoLists-reducer';
 import {
     addTasksAC,
-    changeIsDoneTaskAC,
-    removeTasksAC,
     removeTodoListAndTasksAC,
-    renameTasksAC
 } from '../../reducers/Tasks-reducer';
+import {Task} from './task/Task';
 
-const label = {inputProps: {'aria-label': 'Checkbox demo'}};
+
 
 
 type TodoListPropsTypeTitle = {
@@ -36,22 +31,23 @@ export type TaskType = {
 };
 
 
-const TodoList = (props: TodoListPropsTypeTitle) => {
-
+const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
+    console.log('todolist')
     const dispatch = useDispatch();
 
     const onClickRemoveTodoList = useCallback(() => {
         dispatch(removeTodoListAC(props.todoId))
         dispatch(removeTodoListAndTasksAC(props.todoId))
-    },[dispatch])
-
+    },[props.todoId,props.todoId]) // все что приходит из пропсов или замыкания (не из параметров) передаем в зависимости
+//
     const addTask = useCallback((title: string) => {
-        dispatch(addTasksAC(title, props.todoId))},[dispatch])
+        dispatch(addTasksAC(title, props.todoId))},[props.todoId])
 
 
     const editTitleHandler = useCallback((newTitle: string) => {
         dispatch(renameTodoListAC(newTitle, props.todoId))
-    },[dispatch])
+    },[props.todoId])
+
     let tasksForTodoList = props.tasks;
     if (props.filter === 'active') {
         tasksForTodoList = props.tasks.filter((el) => el.isDone === false);
@@ -61,33 +57,12 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
     }
 
     const tasksListItems = tasksForTodoList.length
-        ? tasksForTodoList.map((el) => {
-            const onClickRemoveTask = () => {
-                dispatch(removeTasksAC(el.id, props.todoId))
-            };
-            const onClickIsDoneTask = (e: ChangeEvent<HTMLInputElement>) => {
-                dispatch(changeIsDoneTaskAC(el.id, e.currentTarget.checked, props.todoId))
-            }
-            const editTitleTasksHandler = (newTitle: string) => {
-                dispatch(renameTasksAC(newTitle, el.id, props.todoId))
-            }
-
-
+        ? tasksForTodoList.map((el) =>{
             return (
-                <li key={el.id} className={style.task}>
-                    <Checkbox {...label} size="small" checked={el.isDone}
-                              onChange={onClickIsDoneTask}/>
-
-                    <span
-                        className={el.isDone ? style.IsDone : style.IsDone_false}>
-                                    <EditableSpan title={el.title} editTitle={editTitleTasksHandler}/></span>
-
-                    <IconButton aria-label="delete" size="small" onClick={onClickRemoveTask}>
-                        <DeleteIcon fontSize="small"/>
-                    </IconButton>
-                </li>
-            );
-        })
+                 <Task id={el.id} todoId={props.todoId} isDone={el.isDone} title={el.title} key={el.id}/>
+            )
+            }
+        )
         : <span className={style.no_tasks}>No tasks</span>;
     const styleButtonAllActive = props.filter === 'all' ? style.active_button : style.no_active_button;
     const styleButtonActiveActive = props.filter === 'active' ? style.active_button : style.no_active_button;
@@ -112,28 +87,28 @@ const TodoList = (props: TodoListPropsTypeTitle) => {
                 <div>
                     <button
                         className={styleButtonAllActive}
-                        onClick={() => {
+                        onClick={useCallback(() => {
                             dispatch(changeFilterTaskAC('all', props.todoId))
-                        }}>All
+                        },[props.todoId])}>All
                     </button>
                     <button
                         className={styleButtonActiveActive}
-                        onClick={() => {
+                        onClick={useCallback(() => {
                             dispatch(changeFilterTaskAC('active', props.todoId))
-                        }}>Active
+                        },[props.todoId])}>Active
                     </button>
                     <button
                         className={styleButtonCompletedActive}
-                        onClick={() => {
+                        onClick={useCallback(() => {
                             dispatch(changeFilterTaskAC('completed', props.todoId))
-                        }}>Completed
+                        },[props.todoId])}>Completed
                     </button>
 
                 </div>
             </div>
         </div>
     );
-};
+})
 
 export default TodoList;
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from 'react';
 import style from './AddItemForm.module.css';
 
 type AddItemFormPropsType = {
@@ -6,7 +6,7 @@ type AddItemFormPropsType = {
     buttonName: string
 }
 
-export const  AddItemForm = (props: AddItemFormPropsType) => {
+export const  AddItemForm = React.memo((props: AddItemFormPropsType) => {
 
     const [taskName, setTaskName] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
@@ -20,12 +20,14 @@ export const  AddItemForm = (props: AddItemFormPropsType) => {
             setError('Title is required');
         }
 
-    };
+    }
     const onChangeHandlerTaskName = (e: ChangeEvent<HTMLInputElement>) => {
         setTaskName(e.currentTarget.value);
-        setError(null);
-    };
-    const onKeyPressHandlerTaskName = (e: KeyboardEvent<HTMLInputElement>) => {
+        if(error !== null) {
+            setError(null);
+        }
+    }
+    const onKeyPressHandlerTaskName =(e: KeyboardEvent<HTMLInputElement>) => {
         let trimTaskName = taskName.trim();
         if (trimTaskName === 'wtf' || trimTaskName === 'fuck') {
             setTaskName('');
@@ -35,7 +37,7 @@ export const  AddItemForm = (props: AddItemFormPropsType) => {
         if (e.ctrlKey && e.charCode === 13) {
             addTask();
         }
-    };
+    }
     const styleInputError = error ? style.error_input : style.input_style;
 
 
@@ -50,4 +52,4 @@ export const  AddItemForm = (props: AddItemFormPropsType) => {
             <button onClick={addTask} className={style.no_active_button}>{props.buttonName}</button>
         </div>
     )
-}
+})

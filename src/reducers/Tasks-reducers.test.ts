@@ -10,7 +10,7 @@ import {
 import {TasksObjType} from '../App';
 
 
-test('remove tasks with copy state', () => {
+test('remove task with copy state', () => {
     const tasksID_1 = v1();
     const tasksID_2 = v1();
     const initialState:TasksObjType = {
@@ -89,7 +89,7 @@ test('correct change isDone of task ', () => {
 
     expect(finishState[tasksID_1][0].isDone).toBe(false)
 })
-test('deleted todo list and all tasks ', () => {
+test('deleted todo list and all task ', () => {
     const tasksID_1 = v1();
     const tasksID_2 = v1();
     const initialState:TasksObjType = {
@@ -119,7 +119,7 @@ test('deleted todo list and all tasks ', () => {
         {id: v1(), title: 'Milk', isDone: false}
     ])
 })
-test('added new todo list and empty tasks ', () => {
+test('added new todo list and empty task ', () => {
     const tasksID_1 = v1();
     const tasksID_2 = v1();
     const newTaskId = v1();
@@ -147,7 +147,7 @@ test('added new todo list and empty tasks ', () => {
     expect(finishState[todoListId].length).toBe(0)
 
 })
-test('correct rename tasks ', () => {
+test('correct rename task ', () => {
     const tasksID_1 = v1();
     const tasksID_2 = v1();
 

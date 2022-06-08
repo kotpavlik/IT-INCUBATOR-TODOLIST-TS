@@ -36,7 +36,7 @@ function App() {
         let id: string = v1();
         dispatch(addNewTodoListsAC(title, id))
         dispatch(addNewTodoListsAndTasksAC(id))
-    }, [dispatch])
+    }, []) // dispatch можно не прокидовать в зависимости с версии React 18
 
     return (
         <div className="App">
