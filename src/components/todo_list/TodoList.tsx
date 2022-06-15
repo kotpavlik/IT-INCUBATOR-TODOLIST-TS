@@ -3,7 +3,7 @@ import {FilterValuesType} from '../../App';
 import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
-import EditableSpan from '../editableSpan/EditableSpan.';
+import EditableSpan from '../editableSpan/EditableSpan';
 import {useDispatch} from 'react-redux';
 import {changeFilterTaskAC, removeTodoListAC, renameTodoListAC} from '../../reducers/TodoLists-reducer';
 import {
@@ -32,7 +32,7 @@ export type TaskType = {
 
 
 const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
-    console.log('todolist')
+
     const dispatch = useDispatch();
 
     const onClickRemoveTodoList = useCallback(() => {

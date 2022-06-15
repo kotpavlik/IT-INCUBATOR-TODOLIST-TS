@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useCallback} from 'react';
 import style from '../TodoList.module.css';
-import EditableSpan from '../../editableSpan/EditableSpan.';
+import EditableSpan from '../../editableSpan/EditableSpan';
 import {IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {changeIsDoneTaskAC, removeTasksAC, renameTasksAC} from '../../../reducers/Tasks-reducer';
