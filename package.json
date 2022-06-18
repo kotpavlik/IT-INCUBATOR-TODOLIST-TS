@@ -24,6 +24,7 @@
     "@types/uuid": "^8.3.4",
     "add": "^2.0.6",
     "antd": "^4.19.5",
+    "axios": "^0.27.2",
     "babel-loader": "^8.2.5",
     "gh-pages": "^3.2.3",
     "lottie-react": "^2.2.1",
