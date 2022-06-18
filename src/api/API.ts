@@ -8,24 +8,41 @@ const settings_api = axios.create({
     }
 })
 
+export type TodoListType = {
+    id: string
+    title:string
+    addedDate:string
+    order:number
+}
+type ResponseType<D> = {   // create generic for clarifies what to wright in data
+    resultCode:number
+    message:string[]
+    data:D
+}
+type CreateTodoListDataType = {
+    item: TodoListType
+}
+
+
+
 export const todoListsAp = {
     getTodoLists() {
-        return settings_api.get('todo-lists').then(response => {
+        return settings_api.get<Array<TodoListType>>('todo-lists').then(response => {
             return response
         })
     },
     createTodoList(title:string) {
-        return settings_api.post('todo-lists', {title:title}).then(response => {
+        return settings_api.post<ResponseType<CreateTodoListDataType>>('todo-lists', {title:title}).then(response => {
             return response
         })
     },
     deleteTodoList(id:string) {
-        return settings_api.delete(`todo-lists/${id}`).then(response => {
+        return settings_api.delete<ResponseType<{}>>(`todo-lists/${id}`).then(response => {
             return response
         })
     },
     updateTodoList(id:string,title:string){
-        return settings_api.put(`todo-lists/${id}`,{title:title}).then(response => {
+        return settings_api.put<ResponseType<{}>>(`todo-lists/${id}`,{title:title}).then(response => {
             return response
         })
     }
