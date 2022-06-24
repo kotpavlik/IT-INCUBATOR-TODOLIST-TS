@@ -6,13 +6,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {changeIsDoneTaskAC, removeTasksAC, renameTasksAC} from '../../../reducers/Tasks-reducer';
 import {useDispatch} from 'react-redux';
 import Checkbox from '@mui/material/Checkbox';
+import {TaskStatuses} from '../../../api/API';
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
 type TaskPropsType = {
     id:string
     todoId:string
-    isDone:boolean
+    status:TaskStatuses
     title:string
 }
 
@@ -31,11 +32,11 @@ export const Task = React.memo((props:TaskPropsType) => {
     },[props.id,props.todoId])
     return (
         <li  className={style.task}>
-            <Checkbox {...label} size="small" checked={props.isDone}
+            <Checkbox {...label} size="small" checked={props.status !== TaskStatuses.New }
                       onChange={onClickIsDoneTask}/>
 
             <span
-                className={props.isDone ? style.IsDone : style.IsDone_false}>
+                className={props.status !== TaskStatuses.New ? style.IsDone : style.IsDone_false}>
                                     <EditableSpan title={props.title} editTitle={editTitleTasksHandler}/></span>
 
             <IconButton aria-label="delete" size="small" onClick={onClickRemoveTask}>

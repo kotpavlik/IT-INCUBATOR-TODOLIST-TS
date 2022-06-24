@@ -1,7 +1,15 @@
-import {TasksObjType} from '../App';
-import {v1} from 'uuid';
 
+import {v1} from 'uuid';
+import {TaskPriorities, TaskStatuses, TaskType} from '../api/API';
+
+
+
+export type TasksObjType = {
+    [key: string]: Array<TaskType>
+}
 type initialState = TasksObjType
+
+
 const initialState:initialState = {
 }
 
@@ -13,7 +21,8 @@ export const tasksReducer = (state: TasksObjType =  initialState, action: tasksR
         case 'ADD_TASKS': {
             return {
                 ...state, [action.payload.todoListId]: [
-                    ...state[action.payload.todoListId], {id: v1(), title: action.payload.taskName, isDone: false}
+                    ...state[action.payload.todoListId], {id: v1(), title: action.payload.taskName, status:TaskStatuses.New,
+                        description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:action.payload.todoListId,order:0,addedDate:''}
                 ]
             }
         }
@@ -21,7 +30,7 @@ export const tasksReducer = (state: TasksObjType =  initialState, action: tasksR
             return {
                 ...state,
                 [action.payload.todoListId]: state[action.payload.todoListId]
-                    .map(el => el.id === action.payload.taskId ? {...el, isDone: action.payload.isDone} : el)
+                    .map(el => el.id === action.payload.taskId ? {...el, status: action.payload.isDone ? TaskStatuses.Completed : TaskStatuses.New } : el)
             }
         }
         case 'REMOVE_TODO_LIST_AND_TASKS': {

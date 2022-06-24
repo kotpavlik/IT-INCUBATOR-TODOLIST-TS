@@ -1,16 +1,21 @@
 import React, {useCallback} from 'react';
-import {FilterValuesType} from '../../App';
 import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
 import EditableSpan from '../editableSpan/EditableSpan';
 import {useDispatch} from 'react-redux';
-import {changeFilterTaskAC, removeTodoListAC, renameTodoListAC} from '../../reducers/TodoLists-reducer';
+import {
+    changeFilterTaskAC,
+    FilterValuesType,
+    removeTodoListAC,
+    renameTodoListAC
+} from '../../reducers/TodoLists-reducer';
 import {
     addTasksAC,
     removeTodoListAndTasksAC,
 } from '../../reducers/Tasks-reducer';
 import {Task} from './task/Task';
+import {TaskStatuses, TaskType} from '../../api/API';
 
 
 
@@ -22,13 +27,7 @@ type TodoListPropsTypeTitle = {
     filter: FilterValuesType;
 };
 
-export type TaskType = {
-    //  если убрать здесь export в файле где он импортируется не нужно явно типизировать массив, TS это сделает сам.
-    // Но это не правельный подход, по скольку всё должно быть явно типизировано
-    id: string;
-    title: string;
-    isDone: boolean;
-};
+
 
 
 const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
@@ -50,16 +49,16 @@ const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
 
     let tasksForTodoList = props.tasks;
     if (props.filter === 'active') {
-        tasksForTodoList = props.tasks.filter((el) => el.isDone === false);
+        tasksForTodoList = props.tasks.filter((el) => el.status === TaskStatuses.New);
     }
     if (props.filter === 'completed') {
-        tasksForTodoList = props.tasks.filter((el) => el.isDone === true);
+        tasksForTodoList = props.tasks.filter((el) => el.status === TaskStatuses.Completed);
     }
 
     const tasksListItems = tasksForTodoList.length
         ? tasksForTodoList.map((el) =>{
             return (
-                 <Task id={el.id} todoId={props.todoId} isDone={el.isDone} title={el.title} key={el.id}/>
+                 <Task id={el.id} todoId={props.todoId} status={el.status} title={el.title} key={el.id}/>
             )
             }
         )

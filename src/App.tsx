@@ -1,35 +1,30 @@
 import React, {useCallback} from 'react';
 import './App.css';
-import TodoList, {TaskType} from './components/todo_list/TodoList';
+import TodoList from './components/todo_list/TodoList';
 import {v1} from 'uuid';
 import {AddItemForm} from './components/addItemForm/AddItemForm';
 import {ExampleAnimation} from './components/lottie/LottieAnimation';
 import {
-    addNewTodoListsAC,
+    addNewTodoListsAC, TodoListDomainType,
 
 } from './reducers/TodoLists-reducer';
 import {
-    addNewTodoListsAndTasksAC,
+    addNewTodoListsAndTasksAC, TasksObjType,
 
 } from './reducers/Tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from './reducers/store';
 
 
-export type FilterValuesType = 'all' | 'active' | 'completed';
-export type TodoListsType = {
-    id: string
-    title: string
-    filter: FilterValuesType
-}
-export type TasksObjType = {
-    [key: string]: Array<TaskType>
-}
+
+
+
+
 
 function App() {
     const dispatch = useDispatch();
     const tasksObj = useSelector<AppStateType,TasksObjType>(state => state.tasks)
-    const todoLists = useSelector<AppStateType,Array<TodoListsType>>(state => state.todoLists)
+    const todoLists = useSelector<AppStateType,Array<TodoListDomainType>>(state => state.todoLists)
 
 
     const  addNewTodoLists = useCallback((title: string) => {
@@ -49,7 +44,7 @@ function App() {
             </div>
             <div className="wrapper_global_all">
 
-                {todoLists ? todoLists.map((tl: TodoListsType) => {
+                {todoLists ? todoLists.map((tl: TodoListDomainType) => {
                     let tasksForTodoList = tasksObj[tl.id];
 
                     return (

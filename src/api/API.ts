@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const settings = {
     withCredentials: true,
     headers: {
@@ -12,7 +13,19 @@ const instance = axios.create({
     ...settings
 
 })
-
+export enum TaskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
+}
+export enum TaskPriorities {
+    Low = 0,
+    Middle = 1,
+    Hi = 2,
+    Urgently = 3,
+    Later = 4
+}
 export type TodoListType = {
     id: string
     title:string
@@ -31,11 +44,11 @@ export type CreateTodoListDataType = {
     resultCode:number
     messages:string[]
 }
-export type  Task = {
+export type TaskType = {
     description: string
     title:string
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
     id: string
@@ -44,12 +57,12 @@ export type  Task = {
     addedDate: string
 }
 export type getTasksType = {
-    items:Task[]
+    items:TaskType[]
     totalCount:number
     error:string
 }
 export type CreateUpdateTaskType = {
-    data:Task
+    data:TaskType
     resultCode:number
     messages:string[]
 }

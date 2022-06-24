@@ -3,19 +3,21 @@ import {
  addNewTodoListsAC,
  changeFilterTaskAC,
  removeTodoListAC,
- renameTodoListAC,
+ renameTodoListAC, TodoListDomainType,
  todoListsReducer
 } from './TodoLists-reducer';
-import {TodoListsType} from '../App';
+
+
+
 
 
 test('correct change filter',()=>{
  const tasksID_1 = v1();
  const tasksID_2 = v1();
 
- let initialStateTDL:Array<TodoListsType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all'},
-  {id: tasksID_2, title: 'What buy', filter: 'all'}
+ let initialStateTDL:Array<TodoListDomainType> = [
+  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
+  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
  ]
 
  const value = 'active' ;
@@ -32,9 +34,9 @@ test('correct remove todo list', () => {
  const tasksID_1 = v1();
  const tasksID_2 = v1();
 
- const initialStateTDL:Array<TodoListsType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all'},
-  {id: tasksID_2, title: 'What buy', filter: 'all'}
+ const initialStateTDL:Array<TodoListDomainType> = [
+  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
+  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
  ]
  const todoListId = tasksID_2 ;
  const action = removeTodoListAC(todoListId);
@@ -48,9 +50,9 @@ test('correct add new todo list', () => {
  const tasksID_1 = v1();
  const tasksID_2 = v1();
 
- const initialStateTDL:Array<TodoListsType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all'},
-  {id: tasksID_2, title: 'What buy', filter: 'all'}
+ const initialStateTDL:Array<TodoListDomainType> = [
+  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
+  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
  ]
  const title = 'new title'
  const newId = v1();
@@ -66,9 +68,9 @@ test('correct rename todo list', () => {
  const tasksID_1 = v1();
  const tasksID_2 = v1();
 
- const initialStateTDL:Array<TodoListsType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all'},
-  {id: tasksID_2, title: 'What buy', filter: 'all'}
+ const initialStateTDL:Array<TodoListDomainType> = [
+  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
+  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
  ]
  const newTitle = 'rename title'
  const todoListId = tasksID_1;

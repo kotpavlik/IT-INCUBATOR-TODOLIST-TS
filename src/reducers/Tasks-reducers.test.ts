@@ -4,28 +4,36 @@ import {
     addTasksAC,
     changeIsDoneTaskAC,
     removeTasksAC,
-    removeTodoListAndTasksAC, renameTasksAC,
+    removeTodoListAndTasksAC, renameTasksAC, TasksObjType,
     tasksReducer
 } from './Tasks-reducer';
-import {TasksObjType} from '../App';
+import {TaskPriorities, TaskStatuses} from '../api/API';
 
+const tasksID_1 = v1();
+const tasksID_2 = v1();
+const initialState:TasksObjType = {
+    [tasksID_1]: [
+        {id: v1(), title: 'HTML', status:TaskStatuses.Completed,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_1',order:0,addedDate:''},
+        {id: v1(), title: 'CSS', status:TaskStatuses.New,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_1',order:0,addedDate:''},
+        {id: v1(), title: 'JS', status:TaskStatuses.Completed,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_1',order:0,addedDate:''},
+        {id: v1(), title: 'React', status:TaskStatuses.Completed,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_1',order:0,addedDate:''},
+        {id: v1(), title: 'Redux', status:TaskStatuses.Completed,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_1',order:0,addedDate:''},
+    ],
+    [tasksID_2]: [
+        {id: v1(), title: 'Bread', status:TaskStatuses.Completed,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_2',order:0,addedDate:''},
+        {id: v1(), title: 'Milk', status:TaskStatuses.New,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_2',order:0,addedDate:''}
+    ]
+}
 
 test('remove task with copy state', () => {
-    const tasksID_1 = v1();
-    const tasksID_2 = v1();
-    const initialState:TasksObjType = {
-        [tasksID_1]: [
-            {id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-        ],
-        [tasksID_2]: [
-            {id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false}
-        ]
-    }
+
     let id = initialState[tasksID_1][0].id ;
     let todoListId = tasksID_1;
 
@@ -38,21 +46,7 @@ test('remove task with copy state', () => {
 
 });
 test('add task', () => {
-    const tasksID_1 = v1();
-    const tasksID_2 = v1();
-    const initialState:TasksObjType = {
-        [tasksID_1]: [
-            {id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-        ],
-        [tasksID_2]: [
-            {id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false}
-        ]
-    }
+
     let taskName = 'new task name';
     let todoListId = tasksID_1;
 
@@ -61,24 +55,10 @@ test('add task', () => {
 
     expect(finishState[tasksID_1].length).toBe(initialState[tasksID_1].length + 1)
     expect(finishState[tasksID_1][5].title).toBe('new task name')
-    expect(finishState[tasksID_1][5].isDone).not.toBe(true)
+    expect(finishState[tasksID_1][5].status).not.toBe(2)
 })
 test('correct change isDone of task ', () => {
-    const tasksID_1 = v1();
-    const tasksID_2 = v1();
-    const initialState:TasksObjType = {
-        [tasksID_1]: [
-            {id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-        ],
-        [tasksID_2]: [
-            {id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false}
-        ]
-    }
+
     let isDone = false;
     let taskId = initialState[tasksID_1][0].id
     let todoListId = tasksID_1;
@@ -87,24 +67,10 @@ test('correct change isDone of task ', () => {
     const finishState = tasksReducer(initialState,action)
 
 
-    expect(finishState[tasksID_1][0].isDone).toBe(false)
+    expect(finishState[tasksID_1][0].status).toBe(0)
 })
 test('deleted todo list and all task ', () => {
-    const tasksID_1 = v1();
-    const tasksID_2 = v1();
-    const initialState:TasksObjType = {
-        [tasksID_1]: [
-            {id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-        ],
-        [tasksID_2]: [
-            {id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false}
-        ]
-    }
+
 
 
     let todoListId = tasksID_1;
@@ -115,31 +81,16 @@ test('deleted todo list and all task ', () => {
 
     expect(finishState[tasksID_1]).toBe(undefined)
     expect(finishState[tasksID_2]).not.toBe( [
-        {id: v1(), title: 'Bread', isDone: true},
-        {id: v1(), title: 'Milk', isDone: false}
+        {id: v1(), title: 'Bread', status:TaskStatuses.Completed,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_2',order:0,addedDate:''},
+        {id: v1(), title: 'Milk', status:TaskStatuses.New,
+            description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_2',order:0,addedDate:''}
     ])
 })
 test('added new todo list and empty task ', () => {
-    const tasksID_1 = v1();
-    const tasksID_2 = v1();
+
     const newTaskId = v1();
-    const initialState:TasksObjType = {
-        [tasksID_1]: [
-            {id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-        ],
-        [tasksID_2]: [
-            {id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false}
-        ]
-    }
-
-
     let todoListId = newTaskId;
-
     const action = addNewTodoListsAndTasksAC(todoListId)
     const finishState = tasksReducer(initialState,action)
 
@@ -148,23 +99,6 @@ test('added new todo list and empty task ', () => {
 
 })
 test('correct rename task ', () => {
-    const tasksID_1 = v1();
-    const tasksID_2 = v1();
-
-    const initialState:TasksObjType = {
-        [tasksID_1]: [
-            {id: v1(), title: 'HTML', isDone: true},
-            {id: v1(), title: 'CSS', isDone: false},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-            {id: v1(), title: 'JS', isDone: true},
-        ],
-        [tasksID_2]: [
-            {id: v1(), title: 'Bread', isDone: true},
-            {id: v1(), title: 'Milk', isDone: false}
-        ]
-    }
-
 
     let newTitle = 'new Title';
     let taskId = initialState[tasksID_2][0].id;
