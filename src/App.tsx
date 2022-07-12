@@ -1,11 +1,11 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import TodoList from './components/todo_list/TodoList';
 import {v1} from 'uuid';
 import {AddItemForm} from './components/addItemForm/AddItemForm';
 import {ExampleAnimation} from './components/lottie/LottieAnimation';
 import {
-    addNewTodoListsAC, TodoListDomainType,
+    addNewTodoListsAC, addNewTodoListsTC, fetchTodoListTC, TodoListDomainType,
 
 } from './reducers/TodoLists-reducer';
 import {
@@ -27,11 +27,18 @@ function App() {
     const todoLists = useSelector<AppStateType,Array<TodoListDomainType>>(state => state.todoLists)
 
 
+    useEffect(()=> {
+        dispatch(fetchTodoListTC() as any)
+    } ,[])
+
     const  addNewTodoLists = useCallback((title: string) => {
         let id: string = v1();
-        dispatch(addNewTodoListsAC(title, id))
+        dispatch(addNewTodoListsTC(title) as any)
         dispatch(addNewTodoListsAndTasksAC(id))
     }, []) // dispatch можно не прокидовать в зависимости с версии React 18
+
+
+    
 
     return (
         <div className="App">

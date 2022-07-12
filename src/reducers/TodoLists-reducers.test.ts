@@ -3,22 +3,24 @@ import {
  addNewTodoListsAC,
  changeFilterTaskAC,
  removeTodoListAC,
- renameTodoListAC, TodoListDomainType,
+ renameTodoListAC, setTodoLists, TodoListDomainType,
  todoListsReducer
 } from './TodoLists-reducer';
+import {TodoListType} from '../api/API';
 
-
+const tasksID_1 = v1();
+const tasksID_2 = v1();
+const initialStateTDL:Array<TodoListDomainType> = [
+ {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
+ {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
+]
 
 
 
 test('correct change filter',()=>{
- const tasksID_1 = v1();
- const tasksID_2 = v1();
 
- let initialStateTDL:Array<TodoListDomainType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
-  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
- ]
+
+
 
  const value = 'active' ;
  const todoListId = tasksID_2 ;
@@ -31,13 +33,7 @@ test('correct change filter',()=>{
  expect(finalState[1].filter).not.toBe(initialStateTDL[1].filter)
 })
 test('correct remove todo list', () => {
- const tasksID_1 = v1();
- const tasksID_2 = v1();
 
- const initialStateTDL:Array<TodoListDomainType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
-  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
- ]
  const todoListId = tasksID_2 ;
  const action = removeTodoListAC(todoListId);
  const finalState = todoListsReducer(initialStateTDL,action)
@@ -47,16 +43,11 @@ test('correct remove todo list', () => {
  expect(finalState[1]).toBe(undefined)
 })
 test('correct add new todo list', () => {
- const tasksID_1 = v1();
- const tasksID_2 = v1();
 
- const initialStateTDL:Array<TodoListDomainType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
-  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
- ]
  const title = 'new title'
- const newId = v1();
- const action = addNewTodoListsAC(title,newId);
+ const newId = 'dashka_kakashka'
+
+ const action = addNewTodoListsAC({title:`${title}`,order:0,addedDate:'',id:`${newId}`});
  const finalState = todoListsReducer(initialStateTDL,action)
 
  expect(finalState.length).not.toBe(initialStateTDL.length)
@@ -65,13 +56,7 @@ test('correct add new todo list', () => {
  expect(finalState[2].id).toBe(newId)
 })
 test('correct rename todo list', () => {
- const tasksID_1 = v1();
- const tasksID_2 = v1();
 
- const initialStateTDL:Array<TodoListDomainType> = [
-  {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
-  {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
- ]
  const newTitle = 'rename title'
  const todoListId = tasksID_1;
  const action = renameTodoListAC(newTitle,todoListId);
@@ -80,6 +65,22 @@ test('correct rename todo list', () => {
  expect(finalState).not.toBe(initialStateTDL)
  expect(finalState[0].title).toBe(newTitle)
  expect(finalState.length === 2).toBe(true)
+
+})
+test(' correct set todo lists test', () => {
+
+const todoLists:TodoListType[] =  [
+ {id:v1(),title:'new title',order:0,addedDate:''},
+ {id:v1(),title:'new title_2',order:0,addedDate:''},
+ {id:v1(),title:'new title_3',order:0,addedDate:''},
+]
+
+ const action = setTodoLists(todoLists);
+ const finalState = todoListsReducer([],action)
+
+ expect(finalState).not.toBe(todoLists)
+ expect(finalState.length).toBe(3)
+
 
 })
 

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback,useEffect} from 'react';
 import style from './TodoList.module.css'
 import {DeleteOutlined} from '@ant-design/icons';
 import {AddItemForm} from '../addItemForm/AddItemForm';
@@ -11,7 +11,7 @@ import {
     renameTodoListAC
 } from '../../reducers/TodoLists-reducer';
 import {
-    addTasksAC,
+    addTaskTC, fetchTasksTC,
     removeTodoListAndTasksAC,
 } from '../../reducers/Tasks-reducer';
 import {Task} from './task/Task';
@@ -34,13 +34,18 @@ const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.todoId) as any)
+    },[])
+
     const onClickRemoveTodoList = useCallback(() => {
         dispatch(removeTodoListAC(props.todoId))
         dispatch(removeTodoListAndTasksAC(props.todoId))
     },[props.todoId,props.todoId]) // все что приходит из пропсов или замыкания (не из параметров) передаем в зависимости
 //
     const addTask = useCallback((title: string) => {
-        dispatch(addTasksAC(title, props.todoId))},[props.todoId])
+        debugger
+        dispatch(addTaskTC( props.todoId,title) as any)},[props.todoId])
 
 
     const editTitleHandler = useCallback((newTitle: string) => {
@@ -57,6 +62,7 @@ const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
 
     const tasksListItems = tasksForTodoList.length
         ? tasksForTodoList.map((el) =>{
+
             return (
                  <Task id={el.id} todoId={props.todoId} status={el.status} title={el.title} key={el.id}/>
             )

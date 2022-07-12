@@ -62,7 +62,9 @@ export type getTasksType = {
     error:string
 }
 export type CreateUpdateTaskType = {
-    data:TaskType
+    data:{
+        item:TaskType
+    }
     resultCode:number
     messages:string[]
 }
@@ -77,15 +79,15 @@ export type ModelType = {
 }
 
 
-export const todoListsAp = {
+export const todoListsApi = {
     getTodoLists() {
         return instance.get<Array<TodoListType>>('todo-lists').then(response => {
             return response
         })
     },
     createTodoList(title:string) {
-        return instance.post<ResponseType<CreateTodoListDataType>>('todo-lists', {title:title}).then(response => {
-            return response
+        return instance.post<CreateTodoListDataType>('todo-lists', {title:title}).then(response => {
+            return response.data
         })
     },
     deleteTodoList(id:string) {
@@ -105,6 +107,7 @@ export const todoListsAp = {
     },
     createTask(todoListId:string,title:string){
         return instance.post<CreateUpdateTaskType>(`/todo-lists/${todoListId}/tasks`, {title:title}).then(response => {
+            debugger
             return response
         })
     },
