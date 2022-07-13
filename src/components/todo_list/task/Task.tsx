@@ -3,7 +3,11 @@ import style from '../TodoList.module.css';
 import EditableSpan from '../../editableSpan/EditableSpan';
 import {IconButton} from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {changeIsDoneTaskAC, deleteTaskTC, renameTasksAC} from '../../../reducers/Tasks-reducer';
+import {
+    changeIsDoneTaskTC,
+    deleteTaskTC,
+    renameTaskTC,
+} from '../../../reducers/Tasks-reducer';
 import {useDispatch} from 'react-redux';
 import Checkbox from '@mui/material/Checkbox';
 import {TaskStatuses} from '../../../api/API';
@@ -25,10 +29,10 @@ export const Task = React.memo((props:TaskPropsType) => {
         dispatch(deleteTaskTC( props.todoId,props.id) as any)
     },[props.id,props.todoId])
     const onClickIsDoneTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeIsDoneTaskAC(props.id, e.currentTarget.checked, props.todoId))
+        dispatch(changeIsDoneTaskTC(props.todoId,props.id, e.currentTarget.checked ) as any)
     },[props.id,props.todoId])
     const editTitleTasksHandler = useCallback((newTitle: string) => {
-        dispatch(renameTasksAC(newTitle, props.id, props.todoId))
+        dispatch(renameTaskTC(props.todoId, props.id, newTitle ) as any)
     },[props.id,props.todoId])
     return (
         <li  className={style.task}>

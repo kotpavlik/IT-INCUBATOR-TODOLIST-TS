@@ -1,14 +1,13 @@
 import {v1} from 'uuid';
 import {
-    addNewTodoListsAndTasksAC,
     addTasksAC,
     changeIsDoneTaskAC,
     removeTasksAC,
     removeTodoListAndTasksAC, renameTasksAC, setTasks, TasksObjType,
     tasksReducer
 } from './Tasks-reducer';
-import {TaskPriorities, TaskStatuses} from '../api/API';
-import {setTodoLists} from './TodoLists-reducer';
+import {TaskPriorities, TaskStatuses, TaskType} from '../api/API';
+
 
 
 const tasksID_1 = v1();
@@ -146,7 +145,7 @@ test('correct change isDone of task ', () => {
     let taskId = initialState[tasksID_1][0].id
     let todoListId = tasksID_1;
 
-    const action = changeIsDoneTaskAC(taskId, isDone, todoListId)
+    const action = changeIsDoneTaskAC( todoListId,taskId, isDone)
     const finishState = tasksReducer(initialState, action)
 
 
@@ -189,24 +188,14 @@ test('deleted todo list and all task ', () => {
         }
     ])
 })
-test('added new todo list and empty task ', () => {
 
-    const newTaskId = v1();
-    let todoListId = newTaskId;
-    const action = addNewTodoListsAndTasksAC(todoListId)
-    const finishState = tasksReducer(initialState, action)
-
-
-    expect(finishState[todoListId].length).toBe(0)
-
-})
 test('correct rename task ', () => {
 
     let newTitle = 'new Title';
     let taskId = initialState[tasksID_2][0].id;
     let todoListId = tasksID_2
 
-    const action = renameTasksAC(newTitle, taskId, todoListId)
+    const action = renameTasksAC(todoListId, taskId, newTitle)
     const finishState = tasksReducer(initialState, action)
 
 
@@ -214,23 +203,7 @@ test('correct rename task ', () => {
 
 })
 
-test('added new todo list and empty task ', () => {
 
-
-    const action = setTodoLists([
-        {id: '1', title: 'new title', order: 0, addedDate: ''},
-        {id: '2', title: 'new title_2', order: 0, addedDate: ''},
-        {id: '3', title: 'new title_3', order: 0, addedDate: ''},
-    ])
-    const finishState = tasksReducer({}, action)
-    const keys = Object.keys(finishState)
-
-    expect(keys.length).toBe(3);
-    expect(finishState['1']).toStrictEqual([]);
-    expect(finishState['2']).toStrictEqual([]);
-
-
-})
 
 test('tasks should be added for todo lists', () => {
 

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 
 type EditableSpanPropsType = {
@@ -13,6 +13,9 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
 
     const activeEditMode = () => {
         setEditMode(!editMode)
+    }
+    const sendNewTitle = () => {
+        setEditMode(!editMode)
         props.editTitle(newTitle)
     }
 
@@ -23,7 +26,7 @@ const EditableSpan = React.memo((props: EditableSpanPropsType) => {
     return (
 
         editMode
-            ? <input autoFocus onChange={onChangeTitleHandler} onBlur={activeEditMode} value={newTitle}/>
+            ? <input autoFocus onChange={onChangeTitleHandler} onBlur={sendNewTitle} value={newTitle}/>
             : <span onDoubleClick={activeEditMode}>{props.title}</span>
 
     );

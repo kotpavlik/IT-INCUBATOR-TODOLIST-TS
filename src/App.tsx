@@ -1,17 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import TodoList from './components/todo_list/TodoList';
-import {v1} from 'uuid';
 import {AddItemForm} from './components/addItemForm/AddItemForm';
 import {ExampleAnimation} from './components/lottie/LottieAnimation';
-import {
-    addNewTodoListsAC, addNewTodoListsTC, fetchTodoListTC, TodoListDomainType,
-
+import {addNewTodoListsTC, fetchTodoListTC, TodoListDomainType,
 } from './reducers/TodoLists-reducer';
-import {
-    addNewTodoListsAndTasksAC, TasksObjType,
-
-} from './reducers/Tasks-reducer';
+import {TasksObjType,} from './reducers/Tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from './reducers/store';
 
@@ -27,18 +21,16 @@ function App() {
     const todoLists = useSelector<AppStateType,Array<TodoListDomainType>>(state => state.todoLists)
 
 
+
     useEffect(()=> {
         dispatch(fetchTodoListTC() as any)
     } ,[])
 
     const  addNewTodoLists = useCallback((title: string) => {
-        let id: string = v1();
         dispatch(addNewTodoListsTC(title) as any)
-        dispatch(addNewTodoListsAndTasksAC(id))
     }, []) // dispatch можно не прокидовать в зависимости с версии React 18
 
 
-    
 
     return (
         <div className="App">
@@ -51,9 +43,9 @@ function App() {
             </div>
             <div className="wrapper_global_all">
 
-                {todoLists ? todoLists.map((tl: TodoListDomainType) => {
-                    let tasksForTodoList = tasksObj[tl.id];
+                {todoLists && todoLists ? todoLists.map((tl: TodoListDomainType) => {
 
+                    let tasksForTodoList = tasksObj[tl.id];
                     return (
                         <TodoListMemo
                             key={tl.id}

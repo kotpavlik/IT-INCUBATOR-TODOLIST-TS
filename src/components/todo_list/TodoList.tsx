@@ -7,12 +7,11 @@ import {useDispatch} from 'react-redux';
 import {
     changeFilterTaskAC,
     FilterValuesType,
-    removeTodoListAC,
-    renameTodoListAC
+    removeTodoListTC,
+    updateTodoListTC
 } from '../../reducers/TodoLists-reducer';
 import {
-    addTaskTC, fetchTasksTC,
-    removeTodoListAndTasksAC,
+    addTaskTC, fetchTasksTC
 } from '../../reducers/Tasks-reducer';
 import {Task} from './task/Task';
 import {TaskStatuses, TaskType} from '../../api/API';
@@ -36,20 +35,19 @@ const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
 
     useEffect(() => {
         dispatch(fetchTasksTC(props.todoId) as any)
+        console.log(props.todoId)
     },[])
 
     const onClickRemoveTodoList = useCallback(() => {
-        dispatch(removeTodoListAC(props.todoId))
-        dispatch(removeTodoListAndTasksAC(props.todoId))
+        dispatch(removeTodoListTC(props.todoId) as any)
     },[props.todoId,props.todoId]) // все что приходит из пропсов или замыкания (не из параметров) передаем в зависимости
 //
     const addTask = useCallback((title: string) => {
-        debugger
         dispatch(addTaskTC( props.todoId,title) as any)},[props.todoId])
 
 
     const editTitleHandler = useCallback((newTitle: string) => {
-        dispatch(renameTodoListAC(newTitle, props.todoId))
+        dispatch(updateTodoListTC( props.todoId,newTitle) as any)
     },[props.todoId])
 
     let tasksForTodoList = props.tasks;
@@ -60,7 +58,7 @@ const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
         tasksForTodoList = props.tasks.filter((el) => el.status === TaskStatuses.Completed);
     }
 
-    const tasksListItems = tasksForTodoList.length
+    const tasksListItems = tasksForTodoList && tasksForTodoList.length
         ? tasksForTodoList.map((el) =>{
 
             return (
@@ -69,6 +67,8 @@ const TodoList = React.memo( (props: TodoListPropsTypeTitle) => {
             }
         )
         : <span className={style.no_tasks}>No tasks</span>;
+
+
     const styleButtonAllActive = props.filter === 'all' ? style.active_button : style.no_active_button;
     const styleButtonActiveActive = props.filter === 'active' ? style.active_button : style.no_active_button;
     const styleButtonCompletedActive = props.filter === 'completed' ? style.active_button : style.no_active_button;
