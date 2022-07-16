@@ -15,7 +15,7 @@ export default {
 const EditableSpanCallBack = action('')
 
 export const AddItemFormBaseExample = () => {
-    return <App/>
+    return <App demo={true}/>
 
 
 

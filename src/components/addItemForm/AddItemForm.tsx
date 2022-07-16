@@ -4,9 +4,10 @@ import style from './AddItemForm.module.css';
 type AddItemFormPropsType = {
     addItem: (title: string) => void
     buttonName: string
+    disabled?:boolean
 }
 
-export const  AddItemForm = React.memo((props: AddItemFormPropsType) => {
+export const  AddItemForm = React.memo(({addItem,buttonName,disabled = false}: AddItemFormPropsType) => {
 
     const [taskName, setTaskName] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
@@ -14,7 +15,7 @@ export const  AddItemForm = React.memo((props: AddItemFormPropsType) => {
     const addTask = () => {
         let trimTaskName = taskName.trim();
         if (trimTaskName) {
-            props.addItem(trimTaskName);
+            addItem(trimTaskName);
             setTaskName('');
         } else {
             setError('Title is required');
@@ -40,7 +41,6 @@ export const  AddItemForm = React.memo((props: AddItemFormPropsType) => {
     }
     const styleInputError = error ? style.error_input : style.input_style;
 
-
     return (
         <div className={style.add_input_wrapper}>
             {error && <span className={style.error_message}>{error}</span>}
@@ -48,8 +48,9 @@ export const  AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 value={taskName}
                 onChange={onChangeHandlerTaskName}
                 onKeyPress={onKeyPressHandlerTaskName}
+                disabled={disabled}
                 className={styleInputError}/>
-            <button onClick={addTask} className={style.no_active_button}>{props.buttonName}</button>
+            <button onClick={addTask} className={style.no_active_button} disabled={disabled}>{buttonName} </button>
         </div>
     )
 })

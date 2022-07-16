@@ -1,8 +1,9 @@
 
-import {ModelType, TaskPriorities, TaskStatuses, TaskType, todoListsApi} from '../api/API';
+import {ModelType, TaskStatuses, TaskType, todoListsApi} from '../api/API';
 import { setTodoListsACType} from './TodoLists-reducer';
 import {Dispatch} from 'redux';
 import {AppStateType} from './store';
+import {setErrorApp, setStatusApp} from './App-reducer';
 
 
 export type TasksObjType = {
@@ -122,9 +123,11 @@ export const setTasks = (tasks: Array<TaskType>, todoListId: string) => {
 
 export const fetchTasksTC = (todoId:string) => {
     return (dispatch: Dispatch) => {
+        dispatch(setStatusApp('loading'))
         todoListsApi.getTask(todoId)
             .then((resp) => {
                 dispatch(setTasks(resp.data.items,todoId))
+                dispatch(setStatusApp('succeeded'))
             })
     }
 }
@@ -137,8 +140,15 @@ export const deleteTaskTC = (todoListId:string,id:string) => {
 }
 export const addTaskTC = (todoListId:string,title:string) => {
     return (dispatch:Dispatch) => {
+        dispatch(setStatusApp('loading'))
         todoListsApi.createTask(todoListId,title).then((res) => {
-            dispatch(addTasksAC(res.data.data.item));
+            if(res.data.resultCode === 0 ) {
+                dispatch(addTasksAC(res.data.data.item))
+                dispatch(setStatusApp('succeeded'))
+            } else {
+                dispatch(setErrorApp(res.data.messages[0]))
+                dispatch(setStatusApp('failed'))
+            }
         })
     }
 }

@@ -91,7 +91,6 @@ export const todoListsApi = {
     },
     deleteTodoList(id:string) {
         return instance.delete<ResponseType<{}>>(`todo-lists/${id}`).then(response => {
-            debugger
             return response
         })
     },

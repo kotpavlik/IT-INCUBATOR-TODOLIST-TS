@@ -15,11 +15,12 @@ export default {
 const EditableSpanCallBack = action('')
 
 export const AddItemFormBaseExample = () => {
-    return <TodoList todoId={'todoList1'}
+    return <TodoList
+        todolist={{id: 'todoList1',filter:'all',order:0,addedDate:'',title:'hello',entityStatus:'idle'}}
                      tasks={[
                          {id: '1', title: 'Bread', status:TaskStatuses.Completed,
                              description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_2',order:0,addedDate:''},
                          {id: '2', title: 'Milk', status:TaskStatuses.New,
                              description:'',priority:TaskPriorities.Low,startDate:'',deadline:'',todoListId:'tasksID_2',order:0,addedDate:''}]
-    } filter={'all'} title={'hello'}/>
+    } />
 }

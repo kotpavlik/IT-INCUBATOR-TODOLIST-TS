@@ -8,23 +8,25 @@ import {addNewTodoListsTC, fetchTodoListTC, TodoListDomainType,
 import {TasksObjType,} from './reducers/Tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppStateType} from './reducers/store';
+import {LinearProgress} from '@mui/material';
+import {ErrorSnackbar} from './components/errorSnackbar/ErrorSnackbar';
+import {requestStatusType} from './reducers/App-reducer';
 
 
+type appPropsType = {
+    demo?:boolean
+}
 
-
-
-
-
-function App() {
+function App({demo=false}:appPropsType) {
     const dispatch = useDispatch();
     const tasksObj = useSelector<AppStateType,TasksObjType>(state => state.tasks)
     const todoLists = useSelector<AppStateType,Array<TodoListDomainType>>(state => state.todoLists)
+    const status = useSelector<AppStateType,requestStatusType>( state => state.app.status)
 
 
 
     useEffect(()=> {
-        dispatch(fetchTodoListTC() as any)
-    } ,[])
+        if(!demo) {dispatch(fetchTodoListTC() as any)}} ,[])
 
     const  addNewTodoLists = useCallback((title: string) => {
         dispatch(addNewTodoListsTC(title) as any)
@@ -34,6 +36,8 @@ function App() {
 
     return (
         <div className="App">
+            <ErrorSnackbar/>
+            {status === 'loading' && <div className='loading'><LinearProgress color="secondary"/></div>}
             <div className="title_plus_lottie">
                 <div className="global_title"> YourToDo</div>
                 <span><ExampleAnimation/></span>
@@ -49,10 +53,9 @@ function App() {
                     return (
                         <TodoListMemo
                             key={tl.id}
-                            todoId={tl.id}
-                            title={tl.title}
+                            todolist={tl}
                             tasks={tasksForTodoList}
-                            filter={tl.filter}
+                            demo={demo}
                         />
                     )
                 }) : <div></div>}

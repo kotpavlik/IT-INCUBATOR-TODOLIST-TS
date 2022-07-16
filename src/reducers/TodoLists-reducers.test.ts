@@ -1,26 +1,22 @@
 import {v1} from 'uuid';
 import {
  addNewTodoListsAC,
- changeFilterTaskAC,
+ changeFilterTaskAC, changeTodoListEntityStatus,
  removeTodoListAC,
  renameTodoListAC, setTodoLists, TodoListDomainType,
  todoListsReducer
 } from './TodoLists-reducer';
 import {TodoListType} from '../api/API';
+import {requestStatusType} from './App-reducer';
 
 const tasksID_1 = v1();
 const tasksID_2 = v1();
 const initialStateTDL:Array<TodoListDomainType> = [
- {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0},
- {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0}
+ {id: tasksID_1, title: 'What learn', filter: 'all', addedDate:'', order:0,entityStatus:'idle'},
+ {id: tasksID_2, title: 'What buy', filter: 'all', addedDate:'', order:0,entityStatus:'idle'}
 ]
 
-
-
 test('correct change filter',()=>{
-
-
-
 
  const value = 'active' ;
  const todoListId = tasksID_2 ;
@@ -31,6 +27,18 @@ test('correct change filter',()=>{
 
  expect(finalState[1].filter).toBe(value)
  expect(finalState[1].filter).not.toBe(initialStateTDL[1].filter)
+})
+test('correct change entityStatus',()=>{
+
+ const status:requestStatusType = 'loading' ;
+ const todoListId = tasksID_2 ;
+
+ const action = changeTodoListEntityStatus(status,todoListId);
+
+ const finalState = todoListsReducer(initialStateTDL,action)
+
+ expect(finalState[1].entityStatus).toBe(status)
+ expect(finalState[1].entityStatus).not.toBe(initialStateTDL[1].entityStatus)
 })
 test('correct remove todo list', () => {
 
