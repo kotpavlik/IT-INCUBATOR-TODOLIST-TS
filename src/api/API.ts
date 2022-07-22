@@ -111,9 +111,7 @@ export const todoListsApi = {
         })
     },
     updateTask(todoListId:string,taskId:string,model:ModelType){
-        debugger
         return instance.put<CreateUpdateTaskType>(`/todo-lists/${todoListId}/tasks/${taskId}`,{model}).then(response => {
-            debugger
             return response
         })
     },

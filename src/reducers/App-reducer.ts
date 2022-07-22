@@ -22,7 +22,7 @@ export const appReducer = (state = InitialState,action:appReducersType):appIniti
     }
 }
 
-type appReducersType = setErrorType | setStatusType
+export type appReducersType = setErrorType | setStatusType
 
 type setErrorType =  ReturnType<typeof setErrorApp>
 export const setErrorApp = (error:string | null) => {

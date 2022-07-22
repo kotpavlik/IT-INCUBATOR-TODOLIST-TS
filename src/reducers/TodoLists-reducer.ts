@@ -1,7 +1,7 @@
-import {Dispatch} from 'redux';
 import {todoListsApi, TodoListType} from '../api/API';
 import {removeTodoListAndTasksAC} from './Tasks-reducer';
 import {requestStatusType, setStatusApp} from './App-reducer';
+import {AppThunk} from './store';
 
 
 export type initialStateType = Array<TodoListDomainType>
@@ -10,7 +10,7 @@ export type TodoListDomainType = TodoListType & { filter: FilterValuesType, enti
 
 const initialState: initialStateType = []
 
-export const todoListsReducer = (state: initialStateType = initialState, action: todoListsReducerType): initialStateType => {
+export const todoListsReducer = (state: initialStateType = initialState, action: todoListsReducersType): initialStateType => {
     switch (action.type) {
         case 'CHANGE_FILTER_TODO_LIST': {
             return state.map(el => el.id === action.payload.todoListId ? {...el, filter: action.payload.value} : el)
@@ -37,7 +37,7 @@ export const todoListsReducer = (state: initialStateType = initialState, action:
     }
 }
 
-type todoListsReducerType = changeFilterTaskACType
+export type todoListsReducersType = changeFilterTaskACType
     | removeTodoListACType
     | addNewTodoListsACType
     | renameTodoListACType
@@ -90,47 +90,50 @@ export const setTodoLists = (todoLists: TodoListType[]) => {
 }
 
 
-export const fetchTodoListTC = () => {
-    return (dispatch: Dispatch) => {
-        todoListsApi.getTodoLists()
-            .then((resp) => {
-                dispatch(setTodoLists(resp.data))
-            })
+export const fetchTodoListTC = (): AppThunk => async dispatch => {
+    try {
+        const resp = await todoListsApi.getTodoLists()
+        dispatch(setTodoLists(resp.data))
+    } catch (e: any) {
+        console.log(e.message)
     }
 }
-export const addNewTodoListsTC = (title: string) => {
-    return (dispatch: Dispatch) => {
-        dispatch(setStatusApp('loading'))
-        todoListsApi.createTodoList(title)
-            .then((resp) => {
-                if (resp.resultCode === 0) {
-                    dispatch(addNewTodoListsAC(resp.data.item))
-                    dispatch(setStatusApp('succeeded'))
-                }
-            })
+export const addNewTodoListsTC = (title: string): AppThunk => async dispatch => {
+    dispatch(setStatusApp('loading'))
+    try {
+        const resp = await todoListsApi.createTodoList(title)
+        if (resp.resultCode === 0) {
+            dispatch(addNewTodoListsAC(resp.data.item))
+            dispatch(setStatusApp('succeeded'))
+        }
+    } catch (e: any) {
+        console.log(e.message)
     }
 }
-export const removeTodoListTC = (todoId: string) => {
-    return (dispatch: Dispatch) => {
-        dispatch(changeTodoListEntityStatus('loading',todoId))
-        dispatch(setStatusApp('loading'))
-        todoListsApi.deleteTodoList(todoId)
-            .then((resp) => {
-                if (resp.data.resultCode === 0) {
-                    dispatch(removeTodoListAC(todoId))
-                    dispatch(removeTodoListAndTasksAC(todoId))
-                    dispatch(setStatusApp('succeeded'))
-                }
-            })
+
+export const removeTodoListTC = (todoId: string): AppThunk => async dispatch => {
+    dispatch(changeTodoListEntityStatus('loading', todoId))
+    dispatch(setStatusApp('loading'))
+    try {
+        const resp = await todoListsApi.deleteTodoList(todoId)
+        if (resp.data.resultCode === 0) {
+            dispatch(removeTodoListAC(todoId))
+            dispatch(removeTodoListAndTasksAC(todoId))
+            dispatch(setStatusApp('succeeded'))
+        }
+    } catch (e: any) {
+        console.log(e.message)
     }
 }
-export const updateTodoListTC = (todoId: string, newTitle: string) => {
-    return (dispatch: Dispatch) => {
-        todoListsApi.updateTodoList(todoId, newTitle)
-            .then((resp) => {
-                if (resp.data.resultCode === 0) {
-                    dispatch(renameTodoListAC(todoId, newTitle))
-                }
-            })
+
+export const updateTodoListTC = (todoId: string, newTitle: string): AppThunk => async dispatch => {
+    try {
+        const resp = await todoListsApi.updateTodoList(todoId, newTitle)
+        if (resp.data.resultCode === 0) {
+            dispatch(renameTodoListAC(todoId, newTitle))
+        }
+    } catch (e: any) {
+        console.log(e.message)
     }
 }
+
