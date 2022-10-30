@@ -1,6 +1,5 @@
 import {ModelType, TaskStatuses, TaskType, todoListsApi} from '../api/API';
 import {setTodoListsACType} from './TodoLists-reducer';
-import {Dispatch} from 'redux';
 import {AppStateType, AppThunk} from './store';
 import {setErrorApp, setStatusApp} from './App-reducer';
 
@@ -44,7 +43,6 @@ export const tasksReducer = (state: initialStateType = initialState, action: tas
         }
 
         case 'RENAME_TASKS': {
-            debugger
             return {
                 ...state,
                 [action.payload.todoListId]:
@@ -137,7 +135,7 @@ export const deleteTaskTC = (todoListId: string, id: string): AppThunk => async 
         await todoListsApi.deleteTask(todoListId, id)
         dispatch(removeTasksAC(todoListId, id))
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.messages))
     }
 }
 
@@ -153,7 +151,7 @@ export const addTaskTC = (todoListId: string, title: string): AppThunk => async 
             dispatch(setStatusApp('failed'))
         }
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.messages))
     }
 }
 
@@ -163,7 +161,6 @@ export const changeIsDoneTaskTC = (todoListId: string, taskId: string, isDone: b
     const task = await state.tasks[todoListId].find(task => task.id === taskId)
     if (!task) {
         throw new Error('task not founded in your state')
-        return;
     }
     const modelUpdateTask: ModelType = {
         title: task.title,
@@ -177,7 +174,7 @@ export const changeIsDoneTaskTC = (todoListId: string, taskId: string, isDone: b
         await todoListsApi.updateTask(todoListId, taskId, modelUpdateTask)
         dispatch(changeIsDoneTaskAC(todoListId, taskId, isDone));
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.messages))
     }
 }
 
@@ -187,7 +184,6 @@ export const renameTaskTC = (todoListId: string, taskId: string, newTitle: strin
     const task = await state.tasks[todoListId].find(task => task.id === taskId)
     if (!task) {
         throw new Error('task not founded in your state')
-        return;
     }
     const modelUpdateTask: ModelType = {
         title: newTitle,
@@ -201,7 +197,7 @@ export const renameTaskTC = (todoListId: string, taskId: string, newTitle: strin
         await todoListsApi.updateTask(todoListId, taskId, modelUpdateTask)
         dispatch(renameTasksAC(todoListId, taskId, newTitle));
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.message))
     }
 }
 

@@ -34,7 +34,7 @@ export type TodoListType = {
 }
 export type ResponseType<D = {}> = {   // create generic for clarifies what to wright in data. If <D> undefined then <D = {} >
     resultCode:number
-    message:string[]
+    messages:string[]
     data:D
 }
 export type CreateTodoListDataType = {
@@ -75,6 +75,15 @@ export type ModelType = {
     priority: TaskPriorities
     startDate: string
     deadline: string
+}
+export type LoginType = {
+    email:string
+    password:string
+    rememberMe:boolean
+    captcha?:string
+}
+type DataForLoginType = {
+    userId: number
 }
 
 
@@ -120,4 +129,25 @@ export const todoListsApi = {
             return response
         })
     },
+}
+
+export const loginApi = {
+    login(data:LoginType) {
+        return instance.post<ResponseType<DataForLoginType>>('/auth/login', data).then(response => {
+            return response
+        })
+    },
+    logout() {
+        return instance.delete<ResponseType<{}>>('/auth/login').then(response => {
+            return response.data
+        })
+    }
+}
+
+export const securityAPI = {
+    getCaptcha() {
+        return instance.get<{url:string}>(`/security/get-captcha-url`).then(response => {
+            return response
+        });
+    }
 }

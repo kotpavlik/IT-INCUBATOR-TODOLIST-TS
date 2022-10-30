@@ -35,7 +35,7 @@ export const  AddItemForm = React.memo(({addItem,buttonName,disabled = false}: A
             alert('не ругайся')
             return;
         }
-        if (e.ctrlKey && e.charCode === 13) {
+        if (e.charCode === 13) {
             addTask();
         }
     }

@@ -5,10 +5,17 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import {store} from './reducers/store';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Login} from './components/todo_list/Login';
 
 ReactDOM.render(
     <Provider store={store}>
-    <App />
+        <BrowserRouter>
+            <Routes>
+                <Route path={'/'} element={ <App/>}/>
+                <Route path={'/login'} element={ <Login/>}/>
+            </Routes>
+        </BrowserRouter>
     </Provider>
     ,  document.getElementById('root'));
 

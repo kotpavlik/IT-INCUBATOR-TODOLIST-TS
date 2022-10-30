@@ -14,7 +14,8 @@ import {
 } from '../../reducers/Tasks-reducer';
 import {Task} from './task/Task';
 import {TaskStatuses, TaskType} from '../../api/API';
-import {CircularProgress, Stack} from '@mui/material';
+import {CircularProgress} from '@mui/material';
+import {AppDispatch} from '../../reducers/store';
 
 
 type TodoListPropsTypeTitle = {
@@ -26,26 +27,26 @@ type TodoListPropsTypeTitle = {
 
 const TodoList = React.memo(({demo = false, ...props}: TodoListPropsTypeTitle) => {
 
-    const dispatch = useDispatch();
+    const dispatch:AppDispatch = useDispatch();
 
     useEffect(() => {
         if (demo) {
             return;
         }
-        dispatch(fetchTasksTC(props.todolist.id) as any)
+        dispatch(fetchTasksTC(props.todolist.id))
     }, [])
 
     const onClickRemoveTodoList = useCallback(() => {
-        dispatch(removeTodoListTC(props.todolist.id) as any)
+        dispatch(removeTodoListTC(props.todolist.id))
     }, [props.todolist.id, props.todolist.id]) // все что приходит из пропсов или замыкания (не из параметров) передаем в зависимости
 //
     const addTask = useCallback((title: string) => {
-        dispatch(addTaskTC(props.todolist.id, title) as any)
+        dispatch(addTaskTC(props.todolist.id, title))
     }, [props.todolist.id])
 
 
     const editTitleHandler = useCallback((newTitle: string) => {
-        dispatch(updateTodoListTC(props.todolist.id, newTitle) as any)
+        dispatch(updateTodoListTC(props.todolist.id, newTitle))
     }, [props.todolist.id])
 
     let tasksForTodoList = props.tasks;

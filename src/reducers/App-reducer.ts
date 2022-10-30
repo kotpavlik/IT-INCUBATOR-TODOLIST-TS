@@ -6,7 +6,7 @@ export type appInitialStateType = {
 
 const InitialState:appInitialStateType = {
     status: 'idle',
-    error: null
+    error: 'hello'
 }
 
 export const appReducer = (state = InitialState,action:appReducersType):appInitialStateType => {

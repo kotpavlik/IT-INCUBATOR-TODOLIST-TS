@@ -11,6 +11,7 @@ import {
 import {useDispatch} from 'react-redux';
 import Checkbox from '@mui/material/Checkbox';
 import {TaskStatuses} from '../../../api/API';
+import {AppDispatch} from '../../../reducers/store';
 
 const label = {inputProps: {'aria-label': 'Checkbox demo'}};
 
@@ -23,16 +24,16 @@ type TaskPropsType = {
 
 export const Task = React.memo((props:TaskPropsType) => {
 
-    const dispatch = useDispatch()
+    const dispatch:AppDispatch = useDispatch()
 
     const onClickRemoveTask = useCallback(() => {
-        dispatch(deleteTaskTC( props.todoId,props.id) as any)
+        dispatch(deleteTaskTC( props.todoId,props.id))
     },[props.id,props.todoId])
     const onClickIsDoneTask = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeIsDoneTaskTC(props.todoId,props.id, e.currentTarget.checked ) as any)
+        dispatch(changeIsDoneTaskTC(props.todoId,props.id, e.currentTarget.checked ))
     },[props.id,props.todoId])
     const editTitleTasksHandler = useCallback((newTitle: string) => {
-        dispatch(renameTaskTC(props.todoId, props.id, newTitle ) as any)
+        dispatch(renameTaskTC(props.todoId, props.id, newTitle ))
     },[props.id,props.todoId])
     return (
         <li  className={style.task}>

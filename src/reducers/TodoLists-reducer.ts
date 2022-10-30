@@ -1,6 +1,6 @@
 import {todoListsApi, TodoListType} from '../api/API';
 import {removeTodoListAndTasksAC} from './Tasks-reducer';
-import {requestStatusType, setStatusApp} from './App-reducer';
+import {requestStatusType, setErrorApp, setStatusApp} from './App-reducer';
 import {AppThunk} from './store';
 
 
@@ -95,7 +95,7 @@ export const fetchTodoListTC = (): AppThunk => async dispatch => {
         const resp = await todoListsApi.getTodoLists()
         dispatch(setTodoLists(resp.data))
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.message))
     }
 }
 export const addNewTodoListsTC = (title: string): AppThunk => async dispatch => {
@@ -107,7 +107,7 @@ export const addNewTodoListsTC = (title: string): AppThunk => async dispatch => 
             dispatch(setStatusApp('succeeded'))
         }
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.message))
     }
 }
 
@@ -121,8 +121,8 @@ export const removeTodoListTC = (todoId: string): AppThunk => async dispatch => 
             dispatch(removeTodoListAndTasksAC(todoId))
             dispatch(setStatusApp('succeeded'))
         }
-    } catch (e: any) {
-        console.log(e.message)
+    } catch (e:any) {
+        dispatch(setErrorApp(e.messages))
     }
 }
 
@@ -133,7 +133,7 @@ export const updateTodoListTC = (todoId: string, newTitle: string): AppThunk => 
             dispatch(renameTodoListAC(todoId, newTitle))
         }
     } catch (e: any) {
-        console.log(e.message)
+        dispatch(setErrorApp(e.message))
     }
 }
 

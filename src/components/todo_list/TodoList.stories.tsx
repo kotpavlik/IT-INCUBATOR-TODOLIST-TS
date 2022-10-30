@@ -2,7 +2,6 @@ import React from 'react';
 import {action} from '@storybook/addon-actions'
 import TodoList from './TodoList';
 import {ReduxStoreProviderDecorator} from '../stories/ReduxStoreProviderDecorator';
-import {v1} from 'uuid';
 import {TaskPriorities, TaskStatuses} from '../../api/API';
 
 

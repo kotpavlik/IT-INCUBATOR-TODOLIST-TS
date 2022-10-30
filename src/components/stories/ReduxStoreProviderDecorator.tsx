@@ -32,6 +32,13 @@ const initialGlobalState:AppStateType = {
     app : {
         status:'idle',
         error: null
+    },
+    login : {
+        id:0,
+        isAuth:false,
+        email:'kotpavlik88@gmail.com',
+        password:'helloWorld93',
+        rememberMe:true
     }
 }
 
