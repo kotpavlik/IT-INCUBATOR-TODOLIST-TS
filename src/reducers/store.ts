@@ -1,4 +1,4 @@
-import {applyMiddleware, combineReducers, legacy_createStore as createStore } from 'redux';
+import { combineReducers, } from 'redux';
 import  thunkMiddleware, {ThunkAction,ThunkDispatch} from 'redux-thunk'
 import {tasksReducer, tasksReducersACType} from './Tasks-reducer';
 import {todoListsReducer, todoListsReducersType} from './TodoLists-reducer';
@@ -45,7 +45,7 @@ export type AppStateType = ReturnType<RootReducerType>
 
 // Thunk types
 //All actions types
-export type AppActionsType = todoListsReducersType | tasksReducersACType | appReducersType | LoginActionType
+export type AppActionsType = todoListsReducersType | tasksReducersACType |  LoginActionType |appReducersType
 //All thunks type
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,AppStateType,unknown,AppActionsType>
 // Types for dispatch thunks !!! no AnyTypes

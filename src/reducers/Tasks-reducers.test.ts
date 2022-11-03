@@ -108,7 +108,7 @@ test('remove task with copy state', () => {
     let id = initialState[tasksID_1][0].id;
     let todoListId = tasksID_1;
 
-    const action = removeTasksAC(id, todoListId)
+    const action = removeTasksAC({id, todoListId})
     const finishState = tasksReducer(initialState, action)
 
     expect(initialState).not.toBe(finishState);
@@ -119,8 +119,7 @@ test('remove task with copy state', () => {
 test('add task', () => {
 
     let todoListId = tasksID_1;
-
-    const action = addTasksAC({
+    let task = {
         id:'1',
         title:'new task name',
         todoListId:`${todoListId}`,
@@ -132,7 +131,9 @@ test('add task', () => {
         startDate:'',
         deadline:''
 
-    })
+    }
+
+    const action = addTasksAC({task})
     const finishState = tasksReducer(initialState, action)
 
     expect(finishState[tasksID_1].length).toBe(initialState[tasksID_1].length + 1)
@@ -145,7 +146,7 @@ test('correct change isDone of task ', () => {
     let taskId = initialState[tasksID_1][0].id
     let todoListId = tasksID_1;
 
-    const action = changeIsDoneTaskAC( todoListId,taskId, isDone)
+    const action = changeIsDoneTaskAC({todoListId, taskId, isDone})
     const finishState = tasksReducer(initialState, action)
 
 
@@ -156,7 +157,7 @@ test('deleted todo list and all task ', () => {
 
     let todoListId = tasksID_1;
 
-    const action = removeTodoListAndTasksAC(todoListId)
+    const action = removeTodoListAndTasksAC({todoListId})
     const finishState = tasksReducer(initialState, action)
 
 
@@ -195,7 +196,7 @@ test('correct rename task ', () => {
     let taskId = initialState[tasksID_2][0].id;
     let todoListId = tasksID_2
 
-    const action = renameTasksAC(todoListId, taskId, newTitle)
+    const action = renameTasksAC({todoListId, taskId, newTitle})
     const finishState = tasksReducer(initialState, action)
 
 
@@ -208,9 +209,11 @@ test('correct rename task ', () => {
 test('tasks should be added for todo lists', () => {
 
 
-    const action = setTasks(initialState[tasksID_1]
+    const action = setTasks({
+        tasks:initialState[tasksID_1]
 
-        , tasksID_1)
+        , todoListId:tasksID_1
+    })
     const finishState = tasksReducer({tasksID_1: [], 'tasksID_2': []}, action)
 
 

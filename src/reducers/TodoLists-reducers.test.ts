@@ -21,7 +21,7 @@ test('correct change filter',()=>{
  const value = 'active' ;
  const todoListId = tasksID_2 ;
 
- const action = changeFilterTaskAC(value,todoListId);
+ const action = changeFilterTaskAC({value, todoListId});
 
  const finalState = todoListsReducer(initialStateTDL,action)
 
@@ -33,7 +33,7 @@ test('correct change entityStatus',()=>{
  const status:requestStatusType = 'loading' ;
  const todoListId = tasksID_2 ;
 
- const action = changeTodoListEntityStatus(status,todoListId);
+ const action = changeTodoListEntityStatus({status, todoListId});
 
  const finalState = todoListsReducer(initialStateTDL,action)
 
@@ -43,7 +43,7 @@ test('correct change entityStatus',()=>{
 test('correct remove todo list', () => {
 
  const todoListId = tasksID_2 ;
- const action = removeTodoListAC(todoListId);
+ const action = removeTodoListAC({todoListId});
  const finalState = todoListsReducer(initialStateTDL,action)
 
  expect(finalState.length).not.toBe(initialStateTDL.length)
@@ -54,8 +54,9 @@ test('correct add new todo list', () => {
 
  const title = 'new title'
  const newId = 'dashka_kakashka'
+ const todoList =  {title:`${title}`,order:0,addedDate:'',id:`${newId}`}
 
- const action = addNewTodoListsAC({title:`${title}`,order:0,addedDate:'',id:`${newId}`});
+ const action = addNewTodoListsAC({todoList});
  const finalState = todoListsReducer(initialStateTDL,action)
 
  expect(finalState.length).not.toBe(initialStateTDL.length)
@@ -67,7 +68,7 @@ test('correct rename todo list', () => {
 
  const newTitle = 'rename title'
  const todoListId = tasksID_1;
- const action = renameTodoListAC(newTitle,todoListId);
+ const action = renameTodoListAC({newTitle, todoListId});
  const finalState = todoListsReducer(initialStateTDL,action)
 
  expect(finalState).not.toBe(initialStateTDL)
@@ -83,7 +84,7 @@ const todoLists:TodoListType[] =  [
  {id:v1(),title:'new title_3',order:0,addedDate:''},
 ]
 
- const action = setTodoLists(todoLists);
+ const action = setTodoLists({todoLists});
  const finalState = todoListsReducer([],action)
 
  expect(finalState).not.toBe(todoLists)

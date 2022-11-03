@@ -1,6 +1,9 @@
 import {loginApi, LoginType, securityAPI} from '../api/API';
-import {AppDispatch, AppThunk} from './store';
+import { AppThunk} from './store';
 import {setErrorApp, setStatusApp} from './App-reducer';
+import {Dispatch} from 'redux';
+
+
 
 export type initialStateType = LoginType & forLoginUserInfo
 export type forLoginUserInfo = {
@@ -61,46 +64,46 @@ export const getCaptchaUrlSuccess = (CaptchaUrl:string) => {
 }
 
 
-export const getCaptchaUrl = ():AppThunk => {
-    return async(dispatch:AppDispatch) => {
+export const getCaptchaUrl = ():AppThunk =>
+     async(dispatch:Dispatch) => {
         let response = await securityAPI.getCaptcha();
         let CaptchaUrl = response.data.url;
         dispatch(getCaptchaUrlSuccess(CaptchaUrl))
     }
-}
+
 
 export const updateLoginTC = (data: LoginType): AppThunk =>
-    async (dispatch) => {
-        dispatch(setStatusApp('loading'))
+    async (dispatch:Dispatch) => {
+        dispatch(setStatusApp({status:'loading'}))
         try {
             const resp = await loginApi.login(data)
             if (resp.data.resultCode === 0) {
                 dispatch(setAuthUserData(data, resp.data.data.userId, true))
                 dispatch(getCaptchaUrlSuccess(''))
-                dispatch(setStatusApp('succeeded'))
+                dispatch(setStatusApp({status:'succeeded'}))
             } else {
-                dispatch(setErrorApp(resp.data.messages[0]))
-                dispatch(setStatusApp('failed'))
-                dispatch(getCaptchaUrl())
+                dispatch(setErrorApp({error:resp.data.messages[0]}))
+                dispatch(setStatusApp({status:'failed'}))
+                dispatch(getCaptchaUrl() as any)
             }
         } catch (e: any) {
-            dispatch(setErrorApp(e.message))
+            dispatch(setErrorApp({error:e.message}))
         }
     }
 
 export const removeLoginTC = (): AppThunk =>
-    async (dispatch) => {
-        dispatch(setStatusApp('loading'))
+    async (dispatch:Dispatch) => {
+        dispatch(setStatusApp({status:'loading'}))
         try {
             const resp = await loginApi.logout()
             if (resp.resultCode === 0) {
                 dispatch(setAuthUserData({email: '', password: '', rememberMe: false}, 0, false))
-                dispatch(setStatusApp('succeeded'))
+                dispatch(setStatusApp({status:'succeeded'}))
             } else {
-                dispatch(setErrorApp(resp.messages[0]))
-                dispatch(setStatusApp('failed'))
+                dispatch(setErrorApp({error:resp.messages[0]}))
+                dispatch(setStatusApp({status:'failed'}))
             }
         } catch (e: any) {
-            dispatch(setErrorApp(e.message))
+            dispatch(setErrorApp({error:e.message}))
         }
     }

@@ -99,19 +99,19 @@ const TodoList = React.memo(({demo = false, ...props}: TodoListPropsTypeTitle) =
                     <button
                         className={styleButtonAllActive}
                         onClick={useCallback(() => {
-                            dispatch(changeFilterTaskAC('all', props.todolist.id))
+                            dispatch(changeFilterTaskAC({value:'all',todoListId: props.todolist.id}))
                         }, [props.todolist.id])}>All
                     </button>
                     <button
                         className={styleButtonActiveActive}
                         onClick={useCallback(() => {
-                            dispatch(changeFilterTaskAC('active', props.todolist.id))
+                            dispatch(changeFilterTaskAC({value:'active',todoListId: props.todolist.id}))
                         }, [props.todolist.id])}>Active
                     </button>
                     <button
                         className={styleButtonCompletedActive}
                         onClick={useCallback(() => {
-                            dispatch(changeFilterTaskAC('completed', props.todolist.id))
+                            dispatch(changeFilterTaskAC({value:'completed', todoListId:props.todolist.id}))
                         }, [props.todolist.id])}>Completed
                     </button>
 
