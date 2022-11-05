@@ -1,5 +1,5 @@
 import {loginApi, LoginType, securityAPI} from '../api/API';
-import { AppThunk} from './store';
+import {AppThunk} from './store';
 import {setErrorApp, setStatusApp} from './App-reducer';
 import {Dispatch} from 'redux';
 
