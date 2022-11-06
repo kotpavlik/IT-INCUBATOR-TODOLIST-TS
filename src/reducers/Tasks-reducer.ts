@@ -48,7 +48,12 @@ export const slice = createSlice({
         setTasks(state,action:PayloadAction<{tasks: Array<TaskType>, todoListId: string}>) {
             state[action.payload.todoListId] = action.payload.tasks
         }
-    }
+    },
+//     extraReducers : (builder) => {
+//         builder.addCase( anyReducer , (state,action) = {
+//             any actions wits state
+//         })
+// }
 })
 
 export const tasksReducer = slice.reducer;
